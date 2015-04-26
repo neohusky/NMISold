@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<toolbar>
+    <item type="button" id="btnPatients" text="Patients" >
+<!--        <item type="button" id="button_select_option_1" text="Option1" image="" />
+        <item type="button" id="button_select_option_2" text="Option2" image="" />-->
+    </item>
+    <item id="sep01" type="separator"/>
+    <item type="button" id="btnGenerators" text="Generators" />
+    <item id="sep02" type="separator"/>
+    <item type="button" id="btnEluates" text="Eluates" />
+    <item id="sep03" type="separator"/>
+    <item type="button" id="btnKits" text="Kits" />
+    <item id="sep04" type="separator"/>
+    <item type="button" id="btnDoses" text="Doses" />
+    <item id="sep05" type="separator"/>
+    <item type="button" id="btnOrdering" text="Ordering" />
+    <item id="sep06" type="separator"/>
+    <item type="button" id="btnAdministration" text="Administration" />
+    <item id="sep07" type="separator"/>
+    <item type="button" id="btnSettings" text="Settings" img="" title="" />
+    <item id="sep07" type="separator"/>
+    <item type="button" id="btnDaySheet" text="DaySheet" img="" title="" />
+</toolbar>
+

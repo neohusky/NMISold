@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+
+    <title>Virtual NumPad</title>
+
+    <!-- jQuery & jQuery UI + theme (required) -->
+    <link href="css/jquery-ui.css" rel="stylesheet">
+    <!--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" </script>>-->
+
+    <script src="js/jquery-ui.mind.js"</script>
+
+     <!-- keyboard widget css & script (required) -->
+    <link href="css/keyboard.css" rel="stylesheet">
+    <script src="js/jquery.keyboard.js"></script>
+
+    <!-- keyboard extensions (optional) -->
+    <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/jquery.keyboard.extension-typing.js"></script>
+    <script src="js/jquery.keyboard.extension-autocomplete.js"></script>
+
+</head>
+<body>
+<!--<input id="num" class="alignRight" type="text">
+<script>
+    $('#num')
+    .keyboard({
+    layout : 'num',
+    restrictInput : true, // Prevent keys not in the displayed keyboard from being typed in
+    preventPaste : true,  // prevent ctrl-v and right click
+    autoAccept : true
+    })
+    .addTyping();
+</script>-->
+
+<input id="text" class="qwerty" type="text" placeholder="Enter something...">
+<br>
+<small>
+    * Placeholder (watermark).<br>
+    * Autocomplete.
+</small>
+<script>
+    var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure",
+        "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript",
+        "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
+
+    $('.qwerty:eq(0)')
+            .keyboard({ layout: 'qwerty' })
+            .autocomplete({
+                source: availableTags
+            })
+            .addAutocomplete()
+            .addTyping();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DHX Touch: Login Form</title>
+</head>
+<script>    var form = {
+    view: "form",
+    elements: [{view: "text", label: "Login", name: "login", labelWidth: 90}, {
+        view: "text",
+        type: "password",
+        label: "Password",
+        name: "password",
+        labelWidth: 90
+    }, {
+        type: "clean",
+        cols: [{view: "button", type: "form", label: "Login"}, {view: "button", type: "round", label: "Register"}]
+    }]
+};</script>
+<script>     dhx.ready(function () {
+    dhx.ui.fullScreen();
+    dhx.ui(form);
+});</script>
+
+<script>    var form = {/*created in step 2*/};
+/*toolbar*/
+var toolbar = {view: "toolbar", elements: [{view: "label", label: "Member Area", align: "center"}]};
+var loginView = {
+    type: "clean",
+    css: "layout",
+    rows: [toolbar, {gravity: 1}, {type: "clean", cols: [{width: 15}, form, {width: 15}]}, {gravity: 2}]
+};
+dhx.ready(function () {
+    dhx.ui.fullScreen();
+    dhx.ui(loginView);
+});</script>
+
+
+<script>   var form = {
+    id: "loginForm",
+    css: 'form',
+    view: "form",
+    height: 135,
+    elements: [{view: "text", label: "Login", name: "login", labelWidth: 90}, {
+        view: "text",
+        type: "password",
+        label: "Password",
+        name: "password",
+        labelWidth: 90
+    }, {
+        type: "clean",
+        cols: [{view: "button", type: "form", label: "Login", click: "login();"}, {
+            view: "button",
+            type: "round",
+            label: "Register"
+        }]
+    }]
+};</script>
+
+<script>    function login() {
+    dhx.notice({delay: 750, message: "Checking ..."});
+    var formData =
+&#36;&#36;
+    ('loginForm').getValues();
+    dhx.ajax().post("login.php", formData, afterCall);
+}</script>
+
+<script>    function afterCall(text, xml) {
+    var data = dhx.DataDriver.json.toObject(text, xml);
+    if (data.result == "success") {            /*shows "loggedIn" view*/
+    &#36;&#36;
+        ("loggedIn").show();
+    } else {
+        dhx.alert("The login and password are incorrect!");
+
+    <
+        body >
+
+        < / body >
+        < / html >

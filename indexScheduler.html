@@ -1,0 +1,148 @@
+<!doctype html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Nuclear Medicine Scheduler</title>
+</head>
+	<script src="codebase/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
+	<script src="codebase/ext/dhtmlxscheduler_units.js"></script>
+	<script src="codebase/ext/dhtmlxscheduler_minical.js" type="text/javascript"></script>
+	<script src="codebase/ext/dhtmlxscheduler_editors.js"></script>
+	<script src="common/dhtmlxCombo/dhtmlxcombo.js"></script>
+	<link rel="stylesheet" href="codebase/dhtmlxscheduler.css" type="text/css" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="common/dhtmlxCombo/dhtmlxcombo.css">
+
+	
+<style type="text/css" media="screen">
+	html, body{
+		margin:0px;
+		padding:0px;
+		height:100%;
+		overflow:hidden;
+	}	
+</style>
+
+<script type="text/javascript" charset="utf-8">
+	function init() {
+		
+		scheduler.config.xml_date="%Y-%m-%d %H:%i";
+		scheduler.config.prevent_cache = true;
+		scheduler.xy.nav_height = 50;
+//
+
+
+
+//default lightbox definition	
+
+			var cameras = [
+ 		       	{key:"PREP", label:"PREP"},
+		        {key:"SYMBIA", label:"SYMBIA"},
+		        {key:"ECAM1", label:"ECAM1"},
+		        {key:"ECAM2", label:"ECAM2"} 
+			];
+		
+		scheduler.config.lightbox.sections=[	
+		    {name:"description", height:26, map_to:"text", type:"textarea" , focus:true},
+			{name:"Patient Name", height:26, map_to:"PatientName", type:"textarea"},
+			{name:"PatientDOB", height:26, map_to:"PatientDOB", type:"textarea"},
+			{name:"PatientSex", height:26, map_to:"PatientSex", type:"textarea"},
+			{name:"PatientMRN", height:26, map_to:"PatientMRN", type:"textarea"},
+			{name:"NurseUnit", height:26, map_to:"NurseUnit", type:"textarea"},
+			{name:"Resource", options: cameras, height:26, map_to:"Resource", type:"combo",image_path:"common/dhtmlxCombo/imgs/",filtering:true},
+			{name:"SchedulingComments", height:130, map_to:"SchedulingComments", type:"textarea"},
+			{name:"time", height:26, type:"time", map_to:"auto"},
+			
+			
+		];
+		scheduler.config.first_hour = 8;
+		scheduler.config.last_hour = 17;
+		scheduler.config.hour_size_px = 180;
+		scheduler.config.limit_time_select = true;
+		scheduler.config.separate_short_events = true;
+		scheduler.config.details_on_create=true;
+		scheduler.config.details_on_dblclick=true;
+		scheduler.locale.labels.section_location="Location";
+		
+		//'unit_tab' is the name of our div
+		scheduler.locale.labels.unit_tab = "Cameras";
+
+		scheduler.createUnitsView({
+ 		  name:"unit",
+ 		  property:"Resource", //the mapped data property
+ 		  list:cameras
+		});
+
+
+
+
+
+
+		//Scheduler Initialisation
+		
+		scheduler.init('scheduler_here',new Date(),"unit");
+		scheduler.setLoadMode("unit");
+		scheduler.load("data/events.php");
+		
+		
+		
+		
+		var dp = new dataProcessor("data/events.php");
+		dp.init(scheduler);
+
+	}
+function show_minical(){
+    if (scheduler.isCalendarVisible()){
+        scheduler.destroyCalendar();
+    } else {
+        scheduler.renderCalendar({
+            position:"dhx_minical_icon",
+            date:scheduler._date,
+            navigation:true,
+            handler:function(date,calendar){
+                scheduler.setCurrentView(date);
+                scheduler.destroyCalendar();
+            }
+        });
+    }
+}
+
+		//dEvent Body
+		scheduler.templates.event_text= function(start,end,event){return event.PatientName;};
+
+		//Event Header
+		scheduler.templates.event_header = function(start,end,event){
+			//Test for inpatient
+			if (event.Inpatient == true)
+				//Inpatient
+				return ("<img src='images/inpatient.png'/>  " + 
+				event.text + "   (" + scheduler.templates.event_date(start) +
+				" - " + scheduler.templates.event_date(end)) + ")";
+				//Outpatient
+        	   	else 
+        	   	return (event.text + "  (" + scheduler.templates.event_date(start) + 
+        	   	" - " + scheduler.templates.event_date(end) + ")");
+		            
+		};
+
+
+</script>
+
+<body onload="init();">
+	<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
+		<div class="dhx_cal_navline">
+			<div class="dhx_cal_prev_button">&nbsp;</div>
+			<div class="dhx_cal_next_button">&nbsp;</div>
+			<div class="dhx_cal_today_button"></div>
+			<div class="dhx_cal_date"></div>
+			<div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+			<div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+			<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+			<div class="dhx_cal_tab" name="unit_tab" style="right:280px;"></div>
+			<div class="dhx_minical_icon" id="dhx_minical_icon" onclick="show_minical()">&nbsp;</div>
+			
+		</div>
+		<div class="dhx_cal_header">
+		</div>
+		<div class="dhx_cal_data">
+		</div>		
+	</div>
+</body>

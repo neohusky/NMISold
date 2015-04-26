@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<items>
+
+
+        <item type="fieldset" name="data" label="Server" inputWidth="auto">
+
+                    <item type="input" name="id" label="id" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="121"/>
+                    <item type="input" name="BatchNo" label="BatchNo" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="171"/>
+                    <item type="input" name="Supplier" label="Supplier" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="71"/>
+                    <item type="input" name="ArrivalDate" label="ArrivalDate" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="71"/>
+
+        </item>
+
+
+</items>

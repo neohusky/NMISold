@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<items>
+    <item type="input" name="Patient ID" label="Patient ID" tooltip="Generator id" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="LastName" label="Last Name" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="FirstName" label="First Name" tooltip="Select the supplier name" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="DOB" label="DOB" tooltip="Select the supplier name" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="ProcedureType" label="Procedure Type" tooltip="Select the supplier name" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="Weight" label="Weight" tooltip="Select the supplier name" required="true" validate= "NotEmpty" hidden= "false""/>
+</items>

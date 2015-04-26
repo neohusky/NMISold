@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+<title>bytescoutbarcode128.js documentation:</title>
+
+
+<!-- simple css styling for body -->
+  <style type="text/css">
+	  html, body {
+		background-color: #eee;
+	font-family: Tahoma, Geneva, sans-serif;
+	  }
+   </style>
+
+<script type="text/javascript"> 
+function select_all()
+{
+var text_val=eval("document.formSampleSource.code");
+text_val.focus();
+text_val.select();
+}
+</script>
+
+	</head>
+	<body>
+
+	<center><h1>bytescoutbarcode128.js documentation:</h1></center>
+	
+	<p>What is bytescoutbarcode128.js? This <b>client-side javascript</b> script made with pure javascript code allows you to generate <b>Code 128</b> barcodes. 
+	<br /><strong>No server-side code is required</strong></p>
+
+	
+	<p>
+	    <font color="blue">
+	        <h3>Advertisement: Looking for a way to generate Code 128 and other barcodes in .NET? <a href="http://bytescout.com/products/developer/barcodesdk/bytescoutbarcodesdk.html">Check our BarCode Generator SDK for .NET and ASP.NET</a></h3>	
+	    </font>
+    </p>
+    
+	<p><strong>SAMPLE CODE (see /Examples/ folder for more samples):</strong></p>
+	
+	
+	<form name="formSampleSource" method=post action=''> 
+	<textarea name="code" cols="100" rows="10" style="font-size:small" onClick="select_all();">
+	
+<!DOCTYPE html>
+<html>
+    <head>	
+		<!-- bytescoutbarcode128.js script containing bytescoutbarcode128 class to generate barcode image -->
+		<script type="text/javascript" src="bytescoutbarcode128.js"></script>  
+    </head>
+
+    <body onload="updateBarcode()">
+		<form action="">
+			Barcode value:
+			<input id="barcodeValue" type="text" name="value" value="abcd123456" />
+			<input type="button" value="Update" onclick="updateBarcode()" />
+		</form>
+		<p>
+			Barcode exported to canvas:
+			<br />
+			<canvas id="barcodeCanvas" width="400" height="100" style="border: solid 1px blue;"></canvas>
+		</p>
+        <script type="text/javascript">
+        	function updateBarcode() 
+			{
+				var canvas1 = document.getElementById("barcodeCanvas");
+				
+				var barcode = new bytescoutbarcode128();
+				
+        		var value = document.getElementById("barcodeValue").value;
+
+        		barcode.valueSet(value);
+        		barcode.setMargins(5, 5, 5, 5);
+        		barcode.setBarWidth(2);
+        		barcode.setSize(barcode.getMinWidth(), canvas1.height);
+
+        		canvas1.width = barcode.getMinWidth();
+        		barcode.exportToCanvas(canvas1);
+        	}
+        </script>
+
+    </body>
+    </html>
+
+
+	</textarea>
+	</form>
+	
+	<p>Main class: <strong>bytescoutbarcode128</strong></p>
+	
+	<h2>bytescoutbarcode128 class methods and properties:</h2>
+
+	<h3>
+	Document:
+	</h3>
+	
+	<!-- DOCUMENT functions -->
+	<ul>
+		 <li>
+
+			<b>valueSet(value)</b> - sets value to encode as Code 128 barcode
+			<br /> Available parameters are:
+			<ul>
+				<li><i>value</i> - value to set for the barcode</li>    	        
+			</ul>
+
+		</li>
+
+<!-- -->
+		 <li>
+
+			<b>setMargins(left, top, right, bottom)</b> - sets margins for the barcode
+			<br /> Available parameters are:
+			<ul>
+				<li><i>left</i> - left margin</li>    	        
+				<li><i>top</i> - top margin</li>    	        
+				<li><i>right</i> - right margin</li>    	        
+				<li><i>bottom</i> - bottom margin</li>    	        												
+			</ul>
+
+		</li>
+
+
+<!-- -->
+		 <li>
+
+			<b>setMinBarWidth(width)</b> - sets min bar width (need to calculate min size of the barcode)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - min width of one single bar</li>    	        
+			</ul>
+
+		</li>
+		
+<!-- -->
+		 <li>
+
+			<b>setMinBarWidth(width)</b> - sets min bar width (need to calculate min size of the barcode)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - min width of one single bar</li>    	        
+			</ul>
+		</li>
+
+<!-- -->
+		 <li>
+
+			<b>setMinBarWidth(width)</b> - sets min bar width (need to calculate min size of the barcode)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - min width of one single bar</li>    	        
+			</ul>
+		</li>
+	
+<!-- -->
+		 <li>
+
+			<b>setMinBarWidth(width)</b> - sets min bar width (need to calculate min size of the barcode)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - min width of one single bar</li>    	        
+			</ul>
+		</li>
+		
+<!-- -->
+		 <li>
+
+			<b>setBarWidth(width)</b> - sets one single bar width (need to calculate final size of the barcode)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - width of one single bar</li>    	        
+			</ul>
+		</li>		
+		
+<!-- -->
+		 <li>
+
+			<b>valueFits()</b> - returns True if barcode required for currently set value fits into currently set width, height, and bar width settings
+		</li>			
+		
+<!-- -->
+		 <li>
+
+			<b>getMinWidth()</b> - returns min width required for the barcode with currently set value. 
+
+		</li>		
+
+<!-- -->
+		 <li>
+
+			<b>getBarWidth()</b> - returns one single bar width. To set bar width use setBarWidth() method
+
+		</li>		
+    
+<!-- -->
+		 <li>
+
+			<b>getBarHeight()</b> - returns one single bar height.
+
+		</li>		
+		
+<!-- -->
+		 <li>
+
+			<b>setBarWidth(width)</b> - sets one single bar width (need to calculate final size of the barcode)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - width of one single bar</li>    	        
+			</ul>
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>setCodeSet(codeSet)</b> - set code set (encoding) to use. 
+			<br /> Available parameters are:
+			<ul>
+				<li><i>codeSet</i> - sets the codeset (encoding) to use. Available values: 
+				    <ul>
+				        <li>
+				            <i>bytescoutbarcode128.Auto</i> - automatically selects the encoding needed and mixes use of codesets when needed. Allows to encode almost all characters.
+				        </li>
+				        <li>
+				            <i>bytescoutbarcode128.A</i> - uses <i>A</i> encoding where it allows to encode only ASCII characters 00 to 95 (0-9, A-Z and control codes), special characters, and FNC 1-4).
+				        </li>
+				        <li>
+				            <i>bytescoutbarcode128.B</i> - uses <i>B</i> encoding where it allows to encode only ASCII characters 32 to 127 (0-9, A-Z, a-z), special characters, and FNC 1-4.
+				        </li>
+				        <li>
+				            <i>bytescoutbarcode128.C</i> - uses <i>C</i> encoding where it allows to encode only  00-99 (encodes each two digits with one code) and FNC1.
+				        </li>				        
+				        
+				    </ul>
+				</li>    	        
+			</ul>
+		</li>						    
+		
+<!-- -->
+		 <li>
+
+			<b>resetCode()</b> - resets settings for width, height, value, codeset options to their default values
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>setCaption(caption, fontName, fontSize)</b> - sets caption text and font for barcode
+			<br /> Available parameters are:
+			<ul>
+				<li><i>caption</i> - caption text</li>    	        
+				<li><i>fontName</i> - name of the font to use</li>    	        
+				<li><i>fontSize</i> - size of the font to use</li>    	        								
+			</ul>			
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>setCaptionVisibility(visible)</b> - sets visibility of caption
+			<br /> Available parameters are:
+			<ul>
+				<li><i>visible</i> - set to True to show caption, False to hide caption</li>    	        
+			</ul>			
+		</li>		
+		
+<!-- -->
+		 <li>
+
+			<b>setCaptionColor(R,G,B)</b> - sets caption color
+			<br /> Available parameters are:
+			<ul>
+				<li><i>R</i> - R parameter to set color (from 0 to 255)</li>
+				<li><i>G</i> - G parameter to set color (from 0 to 255)</li>
+				<li><i>B</i> - B parameter to set color (from 0 to 255)</li>								
+			</ul>			
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>setBackgroundColor(R,G,B)</b> - sets background color for barcode
+			<br /> Available parameters are:
+			<ul>
+				<li><i>R</i> - R parameter to set color (from 0 to 255)</li>
+				<li><i>G</i> - G parameter to set color (from 0 to 255)</li>
+				<li><i>B</i> - B parameter to set color (from 0 to 255)</li>								
+			</ul>			
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>setBarColor(R,G,B)</b> - sets color for bars inside barcode
+			<br /> Available parameters are:
+			<ul>
+				<li><i>R</i> - R parameter to set color (from 0 to 255)</li>
+				<li><i>G</i> - G parameter to set color (from 0 to 255)</li>
+				<li><i>B</i> - B parameter to set color (from 0 to 255)</li>								
+			</ul>			
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>exportToCanvas(canvas, angle) </b> - generates and exports barcode into given canvas
+			<br /> Available parameters are:
+			<ul>
+				<li><i>canvas</i> - canvas object to draw barcode on</li>
+				<li><i>angle</i> - angle to rotate barcode (from 0 to 360) </li>
+			</ul>			
+		</li>								
+		
+		
+<!-- -->
+		 <li>
+
+			<b>exportToBase64(width, height, angle)</b> - generates and exports barcode into base64 encoded image (so you can show it as datauri)
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - width of barcode image</li>
+				<li><i>height</i> - height of barcode image</li>
+				<li><i>angle</i> - angle to rotate barcode (from 0 to 360) </li>
+			</ul>			
+		</li>	
+		
+<!-- -->
+		 <li>
+
+			<b>exportToImageDataBase64(width, height, angle)</b> - generates and exports barcode into base64 encoded image (so you can show it as datauri) without <i>data:image/png;base64</i> prefix so image data can be save to a file
+			<br /> Available parameters are:
+			<ul>
+				<li><i>width</i> - width of barcode image</li>
+				<li><i>height</i> - height of barcode image</li>
+				<li><i>angle</i> - angle to rotate barcode (from 0 to 360) </li>
+			</ul>			
+		</li>										
+						
+	</ul>
+	
+	<font color="blue">
+	    <h3>Looking for a way to generate Code 128 and other barcodes in .NET? <a href="http://bytescout.com/products/developer/barcodesdk/bytescoutbarcodesdk.html">Check our BarCode Generator SDK for .NET and ASP.NET</a></h3>	
+	</font>
+</body>
+</html>

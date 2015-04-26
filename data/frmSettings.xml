@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<items>
+
+    <item type="block" id="tab1">
+        <item type="fieldset" name="data" label="Server" inputWidth="auto">
+                    <item type="input" name="DWL_ServerAET" label="Server AET" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="121"/>
+                    <item type="input" name="DWL_ServerIP" label="Server IP Address" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="171"/>
+                    <item type="input" name="DWL_ServerPort" label="Server Port" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="71"/>
+                    <item type="input" name="DWL_OwnAET" label="NMIS AET" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="71"/>
+                    <item type="input" name="DWL_OwnIP" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+        </item>
+
+    </item>
+    <item type="block" id="tab2">
+        <item type="fieldset" name="data2" label="Query Parameters" inputWidth="auto">
+            <item type="input" name="DWL_RefreshTime" label="Auto Refresh Time (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
+            <item type="input" name="DWL_SearchModality" label="Modality" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+        </item>
+    </item>
+    <item type="block" id="tab3">
+
+    </item>
+</items>

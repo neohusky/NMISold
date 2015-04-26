@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<items>
+    <item type="settings" position="label-left" labelWidth="130" inputWidth="150" noteWidth="150"/>
+    <item type="label" label="Dispense Dose" labelWidth="auto"/>
+
+    <item type="block" id="Step1">
+
+
+    </item>
+    <item type="combo" name="StudyType" label="Study Type" tooltip="Select Study Type" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="combo" label="Format" name="format">
+        <option value="AAC" text="AAC"/>
+        <option value="MP3" text="MP3"/>
+        <option value="FLAC" text="FLAC"/>
+    </item>
+    <item type="input" name="BatchNo" label="Batch Number" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="Supplier" label="Supplier" tooltip="Select the supplier name" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="ArrivalDate" label="Arrival Date" tooltip="Enter the arrival date" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="calendar" dateFormat="%d-%m-%y" name="ArrivalDate" label="Arrival Date" value="" enableTime="false" calendarPosition="right" tooltip="Enter the arrival date" validate= "NotEmpty"/>
+
+    <item type="button" value="Cancel"/>
+    <item type="button" value="Proceed"/>
+</items>
