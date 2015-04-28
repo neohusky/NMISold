@@ -258,14 +258,15 @@ hla.OpenDaySheetMenu = function() {
     hla.grid =  hla.layout.cells("a").attachGrid();
 
     //mygrid.setImagePath("./codebase/imgs/");          //the path to images required by grid
-    hla.grid.setHeader("SURNAME,GIVEN_NAME,MRN,DOB,NURSE_UNIT,APPT_TYPE,APPTBEGIN,RESOURCE");//the headers of columns
+    hla.grid.setHeader("<div style='font-weight: bold; text-align:center;'>DaySheet</div>,#cspan,#cspan,#cspan,#cspan,#cspan,#cspan");
+    hla.grid.attachHeader("Patient Name,MRN,DOB,Ward,APPT_TYPE,APPTBEGIN,RESOURCE");//the headers of columns
     //myGrid.setInitWidths("100,250,150,100,100,100,100,100,100");          //the widths of columns
     hla.grid.setColAlign("left,left,left,left,left,left,left,left,left");       //the alignment of columns
-    hla.grid.setColTypes("ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed");                //the types of columns
+    hla.grid.setColTypes("ro,ro,ro,ed,ro,ro,ro,ro,ro,ro,ro,ro,ro");                //the types of columns
     //mygrid.setColSorting("int,str,str,int");          //the sorting types
     hla.grid.load("data/DaySheet.php");
     hla.grid.init();      //finishes initialization and renders the grid on the page
-    hla.grid.toPDF('codebase/grid-pdf-php/generate.php');
+
 
 };
 getDateTime = function() {
