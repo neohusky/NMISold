@@ -80,7 +80,7 @@ hla.tlbGenerators_click = function(id) {
 hla.tlbDaysheet_click = function(id) {
     switch(id) {
         case "btnPDF":
-            hla.grid.toPDF('codebase/grid-pdf-php/generate.php');
+            hla.grid.toPDF('codebase/grid-pdf-php/generate.php','grey');
             break;
     }
 
@@ -109,7 +109,7 @@ hla.fOpenPatientsMenu = function() {
 };
 
 hla.fOpenGeneratorMenu = function() {
-
+    toolbar = hla.layout.cells("a").detachToolbar();
     toolbar = hla.layout.cells("a").attachToolbar();
     toolbar.loadStruct('data/tlbGenerators.xml');
     toolbar.attachEvent("onClick",hla.tlbGenerators_click);
@@ -147,8 +147,8 @@ hla.Generators = function() {
     hla.windowGeneratorGrid.load("data/gridGenerators.php");
     hla.windowGeneratorGrid.init();
 
-    hla.windows.show()
-    hla.windows.setModal(true)
+    hla.windows.show();
+    hla.windows.setModal(true);
     hla.windows.print()
 };
 

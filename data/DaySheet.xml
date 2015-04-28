@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<rows>
+    <head>
+        <column width="50" type="ed" align="right" color="white" sort="str">Sales</column>
+        <column width="80" type="co" align="left" sort="str">
+            <option value="1">1 Day</option>
+            <option value="7">1 Week</option>
+            ...
+        </column>
+
+        <beforeInit>
+            <call command="methodName">
+                <param>string value</param>
+            </call>
+        </beforeInit>
+        <afterInit>
+            <call command="methodName">
+                <param>string value</param>
+            </call>
+        </afterInit>
+
+        <settings>
+            <colwidth>%</colwidth> //'says' to use width in percents instead of pixels
+        </settings>
+    </head>
+    <row>
+        <cell>value1</cell>
+        <cell>value2</cell>
+    </row>
+</rows>

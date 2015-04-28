@@ -7,29 +7,18 @@
 	$grid = new GridConnector($conn);
  	$grid->enable_log("log.txt",true);
 
-	$grid->render_table("hisimport",
-						"APPT_ID",
-						"PATIENT_NAME,MRN,DOB,NURSE_UNIT,APPT_TYPE,APPTBEGIN,RESOURCE");
+//	$grid->render_table("hisimport",
+//						"APPT_ID",
+//						"PATIENT_NAME,MRN,DOB,NURSE_UNIT,APPT_TYPE,APPTBEGIN,RESOURCE");
 
 
-$grid->grid.render_complex_sql(
+	$grid->grid.render_complex_sql(
+    "SELECT PATIENT_NAME, MRN, DOB, SEX, APPT_TYPE,APPTBEGIN,RESOURCE,NURSE_UNIT FROM hisimport WHERE RESOURCE <> "NM BMD" AND RESOURCE <> "Cardiac Technician" ORDER BY RESOURCE ASC,APPTBEGIN ASC",
+	"PATIENT_NAME",
+    "Patient Name,MRN,DOB,Sex,Scan,Date Time,Resource,Ward"
+);
 
-//grid.render_complex_sql(
-//    "SELECT name from tableA WHERE dept= (SELECT dept FROM tableB where name 'John')",
-//    "contact_id",
-//    "name,surname,age,address",
-//    "extra1, extra2"
-//);
-
-//SELECT
-//	hisimport.PATIENT_NAME,
-//	hisimport.MRN,
-//	hisimport.DOB,
-//	hisimport.SEX,
-//	hisimport.APPT_TYPE,
-//	hisimport.APPTBEGIN,
-//	hisimport.RESOURCE,
-//	hisimport.NURSE_UNIT
+//
 //FROM
 //	hisimport
 //WHERE
