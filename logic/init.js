@@ -1,7 +1,6 @@
 var hla = {};
 var layout,maintoolbar,mainForm,mainDP;
-
-
+var staffname = "<?php echo json_encode($_SESSION['login_user']); ?>";
 
 
 function init() {
@@ -20,7 +19,7 @@ function init() {
     hla.layout.cells("c").setWidth('300');
 
     hla.statusbar = hla.toolbar = hla.layout.attachStatusBar();
-    hla.statusbar.setText("Status bar text here");
+    hla.statusbar.setText(staffname);
 
     maintoolbar = hla.layout.attachToolbar();
     //hla.toolbar.setIconPath("codebase/imgs/");
@@ -62,8 +61,18 @@ hla.tlbMain_click = function(id) {
         case "btnDaySheet":
             hla.OpenDaySheetMenu();
             break;
+        case "btnLogout":
+            hla.Logout();
+            break;
     }
 };
+
+hla.Logout = function() {
+
+
+    window.location.href = "./logic/logout.php";
+};
+
 
 hla.tlbGenerators_click = function(id) {
     switch(id) {
