@@ -18,9 +18,11 @@
     <item type="button" id="btnAdministration" text="Administration" />
     <item id="sep07" type="separator"/>
     <item type="button" id="btnSettings" text="Settings" img="" title="" />
-    <item id="sep07" type="separator"/>
+    <item id="sep08" type="separator"/>
     <item type="button" id="btnDaySheet" text="DaySheet" img="" title="" />
-    <item id="sep07" type="separator"/>
+    <item id="sep09" type="separator"/>
     <item type="button" id="btnLogout" text="Logout" img="" title="" />
+    <item type="text" id="user" text="user" img="" title="" />
+
 </toolbar>
 

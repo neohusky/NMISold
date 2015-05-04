@@ -29,7 +29,7 @@ function init() {
     //maintoolbar.loadStruct('data/tlbMain.xml');
 
     maintoolbar.loadStruct('data/tlbMain.xml',function(){
-        toolbar.setItemText("btnLogout", 'theo');
+        maintoolbar.setItemText("user", username);
     });
     maintoolbar.attachEvent("onClick",hla.tlbMain_click);
     maintoolbar.setIconSize(48);
