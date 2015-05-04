@@ -79,7 +79,7 @@ class ActiveDirectory {
 		return false;
 	}
 
-/**
+/***
  * Creates an LDAP filter by parsing given conditions array.
  *
  * @param $conditions array Array of conditions

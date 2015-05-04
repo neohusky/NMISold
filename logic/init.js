@@ -1,6 +1,8 @@
 var hla = {};
 var layout,maintoolbar,mainForm,mainDP;
-var staffname = "<?php echo json_encode($_SESSION['login_user']); ?>";
+var username = getUrlVars()["id"];
+var StaffName = new dhtmlXDataStore();
+
 
 
 function init() {
@@ -9,27 +11,44 @@ function init() {
     hla.layout.cells("a").setText('Main');
     hla.layout.cells("a").hideHeader();
 
-    hla.layout.cells("b").setText('Reminders');
+    hla.layout.cells("b").setText('Login');
     hla.layout.cells("b").setWidth('300');
     hla.layout.cells("b").fixSize(1,1);
 
     hla.layout.cells("c").setText('BarcodeType1');
     hla.layout.cells("c").setHeight('300');
     hla.layout.cells("c").setWidth('300');
-    hla.layout.cells("c").setWidth('300');
 
     hla.statusbar = hla.toolbar = hla.layout.attachStatusBar();
-    hla.statusbar.setText(staffname);
+    hla.statusbar.setText("Welcome " + " " + username);
+
+
 
     maintoolbar = hla.layout.attachToolbar();
     //hla.toolbar.setIconPath("codebase/imgs/");
-    maintoolbar.loadStruct('data/tlbMain.xml');
+    //maintoolbar.loadStruct('data/tlbMain.xml');
+
+    maintoolbar.loadStruct('data/tlbMain.xml',function(){
+        toolbar.setItemText("btnLogout", 'theo');
+    });
     maintoolbar.attachEvent("onClick",hla.tlbMain_click);
     maintoolbar.setIconSize(48);
 
 
-
 };
+
+
+
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function(m,key,value) {
+            vars[key] = value;
+        });
+    return vars;
+}
+
 
 hla.tlbMain_click = function(id) {
     switch(id) {
@@ -66,6 +85,40 @@ hla.tlbMain_click = function(id) {
             break;
     }
 };
+
+
+hla.Profile = function(){
+
+
+    var myPop;
+    var myForm;
+    var formData;
+
+    formData = [
+        {type: "settings", position: "label-left", labelWidth: 110, inputWidth: 130},
+        {type: "input", label: "Email Address", name: "email"},
+        {type: "password", label: "Password", name: "pwd"},
+        {type: "combo", label: "Role", options: [
+            {text: "Administrator"},
+            {text: "Power User", selected: true},
+            {text: "Guest"}
+        ]},
+        {type: "checkbox", label: "Remember me", checked: 1},
+        {type: "button", value: "Proceed", offsetLeft: 149}
+    ];
+    myPop = new dhtmlXPopup({ toolbar: maintoolbar, id: "btnLogout" });
+    myPop.attachEvent("onShow", function(){
+        if (myForm == null) {
+            myForm = myPop.attachForm(formData);
+            myForm.attachEvent("onButtonClick", function(){
+                myPop.hide();
+            });
+        }
+        myForm.setFocusOnFirstActive();
+    });
+};
+
+
 
 hla.Logout = function() {
 

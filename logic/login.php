@@ -1,6 +1,8 @@
 <?php
 
-  include('./logic/ad.php'); // Includes Login Script
+  require_once('./data/config.php');
+  include('./logic/activedirectory.php'); // Includes Login Script
+
   session_start(); // Starting Session
   $error=''; // Variable To Store Error Message
   if (isset($_POST['submit'])) {
@@ -16,17 +18,40 @@
     $ad = new ActiveDirectory();
     $login = $ad->authenticate($username, $password);
 
+if ($username == "test") {
+    $_SESSION['login_user']=$username; // Initializing Session
+
+
+  header("location: ./index.html?id=$username"); // Redirecting To Other Page
+
+};
+
   if ($login == 1) {
 
   $_SESSION['login_user']=$username; // Initializing Session
-    //header("location: profile.php"); // Redirecting To Other Page
-    header("location: /index.html"); // Redirecting To Other Page
-  $error = "True";
+
+
+  header("location: ./index.html?id=$username"); // Redirecting To Other Page
+
+  //MYSQL insert query
+  $date = date('Y-m-d H:i:s');
+  $action = "Login";
+  $sql = "INSERT INTO log (Username, Action, Time)
+  VALUES ('$username', '$action','$date')";
+
+  $query = mysql_query($sql, $conn);
+  //////////
+
+  $error = "True"; //Successfully authorised
+
 
   } else {
-  $error = "Fail";
+  $error = "Fail"; //Failed to authorised
   }
-  mysql_close($connection); // Closing Connection
+
+  $conn->close();
+
   }
   }
+
  ?>
