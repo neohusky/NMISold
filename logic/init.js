@@ -1,7 +1,7 @@
 var hla = {};
-var layout,maintoolbar,mainForm,mainDP;
-var username = getUrlVars()["id"];
-var StaffName = new dhtmlXDataStore();
+var layout,maintoolbar,mainForm,mainDP,statusbar,grid;
+var UserName = getUrlVars()["id"];
+var StaffName = "";
 
 
 
@@ -19,8 +19,8 @@ function init() {
     hla.layout.cells("c").setHeight('300');
     hla.layout.cells("c").setWidth('300');
 
-    hla.statusbar = hla.toolbar = hla.layout.attachStatusBar();
-    hla.statusbar.setText("Welcome " + " " + username);
+    statusbar = hla.toolbar = hla.layout.attachStatusBar();
+    statusbar.setText("Welcome " + " " + UserName);
 
 
 
@@ -29,7 +29,7 @@ function init() {
     //maintoolbar.loadStruct('data/tlbMain.xml');
 
     maintoolbar.loadStruct('data/tlbMain.xml',function(){
-        maintoolbar.setItemText("user", username);
+        maintoolbar.setItemText("user", UserName);
     });
     maintoolbar.attachEvent("onClick",hla.tlbMain_click);
     maintoolbar.setIconSize(48);
@@ -60,7 +60,7 @@ hla.tlbMain_click = function(id) {
             hla.fOpenGeneratorMenu();
             break;
         case "btnEluates":
-            hla.fTest();
+            hla.StaffLogin();
             break;
         case "btnKits":
             hla.OpenGenerators();
@@ -72,7 +72,8 @@ hla.tlbMain_click = function(id) {
             hla.OpenGenerators();
             break;
         case "btnAdministration":
-            hla.OpenGenerators();
+            fStaffName();
+            //hla.Staff();
             break;
         case "btnSettings":
             hla.OpenSettingsMenu();
@@ -188,6 +189,7 @@ hla.fOpenGeneratorMenu = function() {
 
 
 
+
 };
 
 hla.Generators = function() {
@@ -197,7 +199,7 @@ hla.Generators = function() {
     hla.windows.setSkin('dhx_web');
 
 
-    hla.windowGenerator = hla.windows.createWindow('Settings', 200, 200, 620, 450);
+    hla.windowGenerator = hla.windows.createWindow('Generators', 200, 200, 620, 450);
     hla.windowGenerator.setText("Generators");
     hla.windowGeneratorGrid = hla.windowGenerator.attachGrid();
 
@@ -215,7 +217,60 @@ hla.Generators = function() {
 };
 
 
+hla.StaffLogin = function(){
+    mainForm = hla.layout.cells("a").attachForm();
+    mainForm.loadStruct("data/frmStaffLogin.xml");
+    mainForm.load("data/gridStaff.php?id=2");
+};
 
+
+
+hla.Staff = function() {
+
+
+    grid = hla.layout.cells("a").attachGrid();
+
+    grid.setImagePath("codebase/imgs/");
+    grid.setHeader("Staff ID,StaffName,UserName, Classification, Currently employed");
+    grid.setColTypes("ro,ro,ro,ro,ch");
+    grid.setColSorting('str,str,str,str,ch');
+    grid.setInitWidths('*,*,*,*,*');
+    //"data/gridStaff.php?connector=true&dhx_filter[2]=" + UserName
+    //"data/gridStaff.php"
+
+    grid.load("data/gridStaff.php?connector=true&dhx_filter[2]=" + UserName,function() {
+        grid.selectRow(0);
+        grid.setCellTextStyle(UserName, 1, "background-color:#ff0000;");
+        StaffName = grid.cells(UserName,1).getValue();
+        statusbar.setText(StaffName);
+        //grid.forEachRow(function(id,ind) {
+
+        //})
+        });
+
+
+
+    grid.attachEvent("onRowDblClicked",doOnRowDblClicked);
+    grid.init();
+
+
+
+
+};
+
+function doOnRowDblClicked(rowId){
+    //protocolIt("Rows with id: "+id+" was selected by user")
+    var searchResult=grid.findCell("theok",2,false);
+    dhtmlx.message({
+
+        //text: searchResult,
+        text: "User pressed Enter on row with id "+rowId+"Staff Name is "+StaffName,
+        //text: "Rows with id: "+id+" was selected by " +StaffName,
+
+        expire: 2000
+    })
+    statusbar.setText("Welcome " + " " + StaffName);
+};
 
 
 hla.fGeneratorsAddNew = function() {

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<items>
+
+            <item type="input" name="Username" label="Username" tooltip="Enter the batch number" hidden= "false" />
+            <item type="input" name="Staffname" label="Staffname" tooltip="Enter the batch number" hidden= "false"/>
+
+
+</items>
