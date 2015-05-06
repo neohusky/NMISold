@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<items>
+
+    <item type="input" name="FullName" label="FullName" tooltip="Enter the batch number" hidden= "false"/>
+
+    <item type="button" name="save" value= "Submit1111" offsetTop="10"/>
+    <item type="button" name="cancel" value= "Cancel" offsetTop="10"/>
+
+</items>

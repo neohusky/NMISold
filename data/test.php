@@ -6,7 +6,5 @@
 
 	$form = new FormConnector($conn);
 	$form->enable_log("log.txt",true);
-	$conn->render_table("Generators",
-						"id",
-						"BatchNo, Supplier, ArrivalDate");
+	$form->render_table("test","id","FullName");
 ?>

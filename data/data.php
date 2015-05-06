@@ -6,5 +6,5 @@
 	
 	$form = new FormConnector($conn);
 	$form->enable_log("log.txt",true);
-	$form->render_table("packages_plain","Id","Package,Version,Size,Maintainer");
+	$form->render_table("test","id","FullName");
 ?>

@@ -23,13 +23,16 @@
 
 
 
-            <item type="input" name="BatchNo" label="BatchNo" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false" onclick="msgbox('Batch Number pressed');"/>
+            <item type="input" name="BatchNo" label="Batch No" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false"/>
             <item type="input" name="Supplier" label="Supplier" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false"/>
            <!-- <item type="combo" name="cboSupplier" value="Global Medical" label="Supplier" tooltip="Select the supplier name" required="true" filtering="true" connector="data/cboSuppliers.php"/>-->
 
-            <item type="calendar" name="ArrivalDate" value= "" label="Arrival Date" enableTime="true" calendarPosition="right" tooltip="Enter the arrival date" required="true"/>
+            <item type="calendar" dateFormat="%Y-%m-%d %H:%i:%s" name="ArrivalDate" value= "" label="Arrival Date" enableTime="true" calendarPosition="right" tooltip="Enter the arrival date" required="true"/>
 
-            <!--<item type="calendar" dateFormat="%Y-%m-%d %H:%i:%s" name="ArrivalDate" label="Arrival Date" tooltip="Select Arrival Date" required="true" validate= "NotEmpty" hidden= "false"/>-->
+
+            <item type="input" name="Username" label="StaffID" tooltip="Username" required="true" validate= "NotEmpty" hidden= "false"/>
+
+
             <item type="button" name="save" value= "Submit" offsetTop="10"/>
             <item type="button" name="cancel" value= "Cancel" offsetTop="10"/>
 

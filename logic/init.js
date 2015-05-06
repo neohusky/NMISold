@@ -63,7 +63,7 @@ hla.tlbMain_click = function(id) {
             hla.StaffLogin();
             break;
         case "btnKits":
-            hla.OpenGenerators();
+            hla.testAddNew();
             break;
         case "btnDoses":
             hla.OpenGenerators();
@@ -223,7 +223,21 @@ hla.StaffList = function(){
     mainForm.load("data/gridStaff.php?id='"+UserName+"'");
 };
 
+hla.testAddNew = function(){
+    mainForm = hla.layout.cells("a").attachForm();
+    mainForm.loadStruct("data/frmGeneratorNew.xml");
 
+    mainForm.attachEvent("onButtonClick", function(id){
+        if (id == "save")
+            mainForm.save();
+            hla.layout.cells("a").detachObject(true);
+        if (id == "cancel") hla.layout.cells("a").detachObject(true);
+    });
+
+    var dp = new dataProcessor("data/generators.php");
+    dp.init(mainForm);
+
+};
 
 hla.Staff = function() {
 
@@ -274,42 +288,49 @@ function doOnRowDblClicked(rowId){
 
 
 hla.fGeneratorsAddNew = function() {
-
-
-    //console.log(getDateTime());
     mainForm = hla.layout.cells("a").attachForm();
-    //mainForm.load("data/frmGenerators.php");
-    mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
-            mainForm.setItemValue("ArrivalDate",getDateTime());
-            //mainForm.setItemFocus("ArrivalDate");
-
-
-        }
-    );
-
     mainForm.setFontSize("20px");
 
-
-    mainDP = new dataProcessor("data/frmGenerators.php");
-    mainDP.init(mainForm);
+    mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
+        //mainForm.setItemFocus("BatchNo");
+        mainForm.setItemValue("ArrivalDate",getDateTime());
+        mainForm.setItemValue("Username",UserName);
+    });
 
     mainForm.attachEvent("onButtonClick", function(id){
-        if (id == "save") {
-            //console.log(calArrivalDate.getDate());
+        if (id == "save")
+            mainForm.send();
 
+        if (id == "cancel") hla.layout.cells("a").detachObject(true);
+    });
+
+    mainForm.attachEvent("onAfterValidate", function(status) {
+        if (status == true) {
+            alert('todo ok');
             mainForm.save();
-
-            //hla.layout.cells("a").detachObject(true);
-            //mainForm = null;
-            }
-        if (id == "cancel") {
-
             hla.layout.cells("a").detachObject(true);
 
         }
-    })
+    });
+    var dp = new dataProcessor("data/generators.php");
+    dp.init(mainForm);
 };
 
+hla.testAddNew = function(){
+    mainForm = hla.layout.cells("a").attachForm();
+    mainForm.loadStruct("data/frmGeneratorNew.xml");
+
+    mainForm.attachEvent("onButtonClick", function(id){
+        if (id == "save")
+            mainForm.save();
+        hla.layout.cells("a").detachObject(true);
+        if (id == "cancel") hla.layout.cells("a").detachObject(true);
+    });
+
+    var dp = new dataProcessor("data/generators.php");
+    dp.init(mainForm);
+
+};
 hla.ViewSettings = function() {
 
     hla.windows = new dhtmlXWindows();
