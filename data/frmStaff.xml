@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<items>
+
+    <item type="block" id="tab1">
+        <item type="fieldset" name="data" label="Server" inputWidth="auto">
+                    <item type="input" name="Username" label="Username" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="121"/>
+                    <item type="input" name="Staffname" label="Full Staff Name" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="171"/>
+                    <item type="input" name="StaffID" label="StaffID" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="71"/>
+                    <item type="input" name="Position" label="Position" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="71"/>
+                    <item type="input" name="CeasedEmploymentDate" label="CeasedEmploymentDate" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="Address" label="NAddress" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="City" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="Postcode" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="State" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="MobilePhone" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="HomePhone" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+            <item type="input" name="State" label="NMIS IP Address" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="121"/>
+        </item>
+
+    </item>
+    <item type="block" id="tab2">
+        <item type="fieldset" name="data2" label="Emergency Contact Info" inputWidth="auto">
+            <item type="input" name="Contact1tName" label="Auto Refresh Time (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
+            <item type="input" name="Contact1Address" label="Modality" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+            <item type="input" name="Contact1City" label="Auto Refresh Time (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
+            <item type="input" name="Contact1Postcode" label="Modality" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+            <item type="input" name="Contact1State" label="Auto Refresh Time (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
+            <item type="input" name="Contact1MobilePhone" label="Modality" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+            <item type="input" name="Contact1HomePhone" label="Modality" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+        </item>
+    </item>
+    <item type="block" id="tab3">
+
+    </item>
+</items>

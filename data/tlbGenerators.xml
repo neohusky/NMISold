@@ -3,5 +3,7 @@
     <item type="button" id="btnGeneratorNew" text="New" />
     <item id="sep01" type="separator"/>
     <item type="button" id="btnGeneratorDecomission" text="Decomission" img="" title="" />
+    <item type="button" id="btnGeneratorInventory" text="Inventory" img="" title="" />
+
 </toolbar>
 

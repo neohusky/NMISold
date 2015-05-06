@@ -72,7 +72,7 @@ hla.tlbMain_click = function(id) {
             hla.OpenGenerators();
             break;
         case "btnAdministration":
-            fStaffName();
+            hla.StaffList();
             //hla.Staff();
             break;
         case "btnSettings":
@@ -127,6 +127,16 @@ hla.Logout = function() {
     window.location.href = "./logic/logout.php";
 };
 
+hla.fOpenGeneratorMenu = function() {
+    toolbar = hla.layout.cells("a").detachToolbar();
+    toolbar = hla.layout.cells("a").attachToolbar();
+    toolbar.loadStruct('data/tlbGenerators.xml');
+    toolbar.attachEvent("onClick",hla.tlbGenerators_click);
+
+
+
+
+};
 
 hla.tlbGenerators_click = function(id) {
     switch(id) {
@@ -137,6 +147,11 @@ hla.tlbGenerators_click = function(id) {
         case "btnGeneratorDecomission":
             openWin();
             break;
+        case "btnGeneratorInventory":
+            hla.GeneratorInventory();
+            break;
+
+
     }
 };
 
@@ -148,13 +163,6 @@ hla.tlbDaysheet_click = function(id) {
     }
 
 };
-
-hla.fDaysheetPDF = function() {
-
-
-};
-
-
 
 hla.fOpenPatientsMenu = function() {
 
@@ -171,56 +179,48 @@ hla.fOpenPatientsMenu = function() {
 
 };
 
-hla.fOpenGeneratorMenu = function() {
-    toolbar = hla.layout.cells("a").detachToolbar();
-    toolbar = hla.layout.cells("a").attachToolbar();
-    toolbar.loadStruct('data/tlbGenerators.xml');
-    toolbar.attachEvent("onClick",hla.tlbGenerators_click);
-
-    grid = hla.layout.cells("a").attachGrid();
-
-    grid.setImagePath("codebase/imgs/");
-    grid.setHeader("id, BatchNo, Supplier, ArrivalDate");
-    grid.setColTypes("ed,ed,ed,ed");
-    grid.setColSorting('str,str,str,str');
-    grid.setInitWidths('*,*,*,*');
-    grid.load("data/gridGenerators.php");
-    grid.init();
 
 
+hla.GeneratorInventory = function() {
+
+    hla.grid = hla.layout.cells("a").attachGrid();
+    hla.grid.setImagePath("codebase/imgs/");
+    hla.grid.setHeader("id, BatchNo, Supplier, ArrivalDate");
+    hla.grid.setColTypes("ed,ed,ed,ed");
+    hla.grid.setColSorting('str,str,str,str');
+    hla.grid.setInitWidths('*,*,*,*');
+    hla.grid.load("data/gridGenerators.php");
+    hla.grid.init();
+
+    //hla.windows = new dhtmlXWindows();
+    //hla.windows.setSkin('dhx_web');
 
 
-};
+    //hla.windowGenerator = hla.windows.createWindow('Generators', 200, 200, 620, 450);
+    //hla.windowGenerator.setText("Generators");
+    //hla.windowGeneratorGrid = hla.windowGenerator.attachGrid();
 
-hla.Generators = function() {
+    //hla.windowGeneratorGrid.setImagePath("codebase/imgs/");
+    //hla.windowGeneratorGrid.setHeader("id, BatchNo, Supplier, ArrivalDate");
+    //hla.windowGeneratorGrid.setColTypes("ed,ed,ed,ed");
+    //hla.windowGeneratorGrid.setColSorting('str,str,str,str');
+    //hla.windowGeneratorGrid.setInitWidths('*,*,*,*');
+    //hla.windowGeneratorGrid.load("data/gridGenerators.php");
+    //hla.windowGeneratorGrid.init();
 
-
-    hla.windows = new dhtmlXWindows();
-    hla.windows.setSkin('dhx_web');
-
-
-    hla.windowGenerator = hla.windows.createWindow('Generators', 200, 200, 620, 450);
-    hla.windowGenerator.setText("Generators");
-    hla.windowGeneratorGrid = hla.windowGenerator.attachGrid();
-
-    hla.windowGeneratorGrid.setImagePath("codebase/imgs/");
-    hla.windowGeneratorGrid.setHeader("id, BatchNo, Supplier, ArrivalDate");
-    hla.windowGeneratorGrid.setColTypes("ed,ed,ed,ed");
-    hla.windowGeneratorGrid.setColSorting('str,str,str,str');
-    hla.windowGeneratorGrid.setInitWidths('*,*,*,*');
-    hla.windowGeneratorGrid.load("data/gridGenerators.php");
-    hla.windowGeneratorGrid.init();
-
-    hla.windows.show();
-    hla.windows.setModal(true);
-    hla.windows.print()
+    //hla.windows.show();
+    //hla.windows.setModal(true);
+    //hla.windows.print()
 };
 
 
-hla.StaffLogin = function(){
+hla.StaffList = function(){
     mainForm = hla.layout.cells("a").attachForm();
-    mainForm.loadStruct("data/frmStaffLogin.xml");
-    mainForm.load("data/gridStaff.php?id=2");
+    var dp = new dataProcessor("data/gridStaff.php");//instatiate dataprocessor
+    dp.init(mainForm);//link form to dataprocessor
+
+    mainForm.loadStruct("data/frmStaff.xml");
+    mainForm.load("data/gridStaff.php?id='"+UserName+"'");
 };
 
 
@@ -278,12 +278,15 @@ hla.fGeneratorsAddNew = function() {
 
     //console.log(getDateTime());
     mainForm = hla.layout.cells("a").attachForm();
+    //mainForm.load("data/frmGenerators.php");
     mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
+            mainForm.setItemValue("ArrivalDate",getDateTime());
+            //mainForm.setItemFocus("ArrivalDate");
 
-            //console.log(calArrivalDate.getDate());
 
         }
     );
+
     mainForm.setFontSize("20px");
 
 
@@ -293,13 +296,17 @@ hla.fGeneratorsAddNew = function() {
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save") {
             //console.log(calArrivalDate.getDate());
+
             mainForm.save();
-
-
 
             //hla.layout.cells("a").detachObject(true);
             //mainForm = null;
             }
+        if (id == "cancel") {
+
+            hla.layout.cells("a").detachObject(true);
+
+        }
     })
 };
 
