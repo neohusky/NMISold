@@ -1,10 +1,12 @@
 <?php
 require_once('config.php');
 
+$User = $_GET["id"];
 
 $sql = "Select Staffname, Position
 		FROM staff
-		WHERE Username = 'theok'";
+		WHERE Username = '".$User."'";
+
 
 $retval = mysql_query( $sql, $conn );
 
@@ -15,7 +17,7 @@ $rows = array();
 
  print json_encode($rows);
 
-echo "Fetched data successfully\n";
+//echo "Fetched data successfully\n";
 
 mysql_close($conn);
 

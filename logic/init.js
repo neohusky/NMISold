@@ -1,8 +1,8 @@
 var hla = {};
 var layout,maintoolbar,mainForm,mainDP,statusbar,grid;
 var UserName = getUrlVars()["id"];
-var StaffName = "";
-
+var StaffName;
+var StaffPosition;
 
 
 function init() {
@@ -19,6 +19,8 @@ function init() {
     hla.layout.cells("c").setHeight('300');
     hla.layout.cells("c").setWidth('300');
 
+
+    GetUserDetails(); //Gets Staff user details
     statusbar = hla.toolbar = hla.layout.attachStatusBar();
     statusbar.setText("Welcome " + " " + UserName);
 
@@ -29,7 +31,7 @@ function init() {
     //maintoolbar.loadStruct('data/tlbMain.xml');
 
     maintoolbar.loadStruct('data/tlbMain.xml',function(){
-        maintoolbar.setItemText("user", UserName);
+        maintoolbar.setItemText("btnUser", UserName);
     });
     maintoolbar.attachEvent("onClick",hla.tlbMain_click);
     maintoolbar.setIconSize(48);
@@ -72,7 +74,7 @@ hla.tlbMain_click = function(id) {
             hla.OpenGenerators();
             break;
         case "btnAdministration":
-            AjaxUserDetails();
+            hla.Profile();
             break;
         case "btnSettings":
             hla.OpenSettingsMenu();
@@ -83,11 +85,15 @@ hla.tlbMain_click = function(id) {
         case "btnLogout":
             hla.Logout();
             break;
+        case "btnUser":
+            hla.Profile();
+            break;
+
     }
 };
 
 
-hla.Profile = function(){
+hla.Profile = function() {
 
 
     var myPop;
@@ -95,30 +101,26 @@ hla.Profile = function(){
     var formData;
 
     formData = [
-        {type: "settings", position: "label-left", labelWidth: 110, inputWidth: 130},
-        {type: "input", label: "Email Address", name: "email"},
-        {type: "password", label: "Password", name: "pwd"},
-        {type: "combo", label: "Role", options: [
-            {text: "Administrator"},
-            {text: "Power User", selected: true},
-            {text: "Guest"}
-        ]},
-        {type: "checkbox", label: "Remember me", checked: 1},
-        {type: "button", value: "Proceed", offsetLeft: 149}
+        {type: "input", label: "Staff Name", name: "StaffName", disabled: true, labelWidth: 110, inputWidth: 300},
+        {type: "input", label: "Position", name: "Position", disabled: true, labelWidth: 110, inputWidth: 300},
+        {type: "button", value: "Proceed", name: "btnProceed", offsetLeft: 149}
     ];
-    myPop = new dhtmlXPopup({ toolbar: maintoolbar, id: "btnLogout" });
-    myPop.attachEvent("onShow", function(){
+    myPop = new dhtmlXPopup({toolbar: maintoolbar, id: "btnUser"});
+    myPop.attachEvent("onShow", function () {
         if (myForm == null) {
             myForm = myPop.attachForm(formData);
-            myForm.attachEvent("onButtonClick", function(){
-                myPop.hide();
+            myForm.setItemValue("StaffName", StaffName);
+            myForm.setItemValue("Position", StaffPosition);
+            myForm.attachEvent("onButtonClick", function (id) {
+                if (id == "btnProceed")
+                    myPop.hide();
+
             });
+            myForm.setFocusOnFirstActive();
         }
-        myForm.setFocusOnFirstActive();
     });
+
 };
-
-
 
 hla.Logout = function() {
 
@@ -172,7 +174,7 @@ hla.fOpenPatientsMenu = function() {
 
     toolbar.attachEvent("onClick", function(id){
 
-        if (id == "btnRefresh") DWLquery();
+        if (id == "btnRefresh") RunDWLquery();
         if (id == "btnWorklist")
         if (id == "btnToday")
         if (id == "btnLast72") //hla.layout.cells("a").detachObject(true);
@@ -310,6 +312,7 @@ hla.fGeneratorsAddNew = function() {
         mainForm.setItemValue("Username",UserName);
     });
 
+
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
             mainForm.save();
@@ -360,7 +363,7 @@ hla.ViewSettings = function() {
 
 };
 
-AjaxDWLquery = function(){
+RunDWLquery = function(){
 
     dhx.ajax().get("data/RunDWL.php", function(text,xml){
         statusbar.setText(text,xml);
@@ -368,10 +371,15 @@ AjaxDWLquery = function(){
 
 };
 
-AjaxUserDetails = function(){
+GetUserDetails = function(){
 
-    dhx.ajax().get("data/UserDetails.php", function(text,xml){
-    msgbox(text,xml);
+    dhx.ajax().get("data/UserDetails.php?id="+UserName, function(text,xml){
+        var UserDetails = dhx.DataDriver.json.toObject(text,xml);
+        StaffName = UserDetails.UserDetails["0"].Staffname;
+        StaffPosition =UserDetails.UserDetails["0"].Position;
+
+        //msgbox(Position);
+
     });
 
 };
@@ -516,7 +524,7 @@ function msgbox(Text) {
     console.log("Message Box " + Text);
 };
 function protocolIt(str){
-    var p = document.getElementById("protocol")
+    var p = document.getElementById("protocol");
     p.innerHTML = "<li style='height:auto;'>"+str+"</li>" + p.innerHTML
 }
 function doOnClick(rowId,cellInd,state){

@@ -30,7 +30,7 @@
             <item type="calendar" dateFormat="%Y-%m-%d %H:%i:%s" name="ArrivalDate" value= "" label="Arrival Date" enableTime="true" calendarPosition="right" tooltip="Enter the arrival date" required="true"/>
 
 
-            <item type="input" name="Username" label="StaffID" tooltip="Username" required="true" validate= "NotEmpty" hidden= "false"/>
+            <item type="input" name="Username" label="StaffID" tooltip="Username" required="true" validate= "NotEmpty" hidden= "true"/>
 
 
             <item type="button" name="save" value= "Submit" offsetTop="10"/>
