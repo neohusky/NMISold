@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<toolbar>
+    <item type="button" id="btnRefresh" text="Refresh" />
+    <item id="sep01" type="separator"/>
+    <item type="button" id="btnWorklist" text="Worklist" img="" title="" />
+    <item type="button" id="btnToday" text="Today All" img="" title="" />
+    <item type="button" id="btnLast72" text="Last 72Hr" img="" title="" />
+    <item type="button" id="btnDelete" text="Delete" img="" title="" />
+</toolbar>
+

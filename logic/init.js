@@ -72,8 +72,7 @@ hla.tlbMain_click = function(id) {
             hla.OpenGenerators();
             break;
         case "btnAdministration":
-            hla.StaffList();
-            //hla.Staff();
+            AjaxUserDetails();
             break;
         case "btnSettings":
             hla.OpenSettingsMenu();
@@ -166,6 +165,19 @@ hla.tlbDaysheet_click = function(id) {
 
 hla.fOpenPatientsMenu = function() {
 
+    toolbar = hla.layout.cells("a").detachToolbar();
+    toolbar = hla.layout.cells("a").attachToolbar();
+    toolbar.loadStruct('data/tlbPatients.xml');
+
+
+    toolbar.attachEvent("onClick", function(id){
+
+        if (id == "btnRefresh") DWLquery();
+        if (id == "btnWorklist")
+        if (id == "btnToday")
+        if (id == "btnLast72") //hla.layout.cells("a").detachObject(true);
+        if (id == "btnDelete");
+    });
 
     hla.grid =  hla.layout.cells("a").attachGrid();
 
@@ -287,6 +299,7 @@ function doOnRowDblClicked(rowId){
 };
 
 
+
 hla.fGeneratorsAddNew = function() {
     mainForm = hla.layout.cells("a").attachForm();
     mainForm.setFontSize("20px");
@@ -299,19 +312,19 @@ hla.fGeneratorsAddNew = function() {
 
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
-            mainForm.send();
+            mainForm.save();
 
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 
-    mainForm.attachEvent("onAfterValidate", function(status) {
+/*    mainForm.attachEvent("onAfterValidate", function(status) {
         if (status == true) {
             alert('todo ok');
             mainForm.save();
             hla.layout.cells("a").detachObject(true);
 
         }
-    });
+    });*/
     var dp = new dataProcessor("data/generators.php");
     dp.init(mainForm);
 };
@@ -344,6 +357,22 @@ hla.ViewSettings = function() {
     hla.windowSettingsForm = hla.windowSettings.attachForm();
     hla.windowSettingsForm.loadStruct("data/frmSettings.xml");
     hla.windowSettingsForm.load("data/frmSettings.php?id=1");
+
+};
+
+AjaxDWLquery = function(){
+
+    dhx.ajax().get("data/RunDWL.php", function(text,xml){
+        statusbar.setText(text,xml);
+    });
+
+};
+
+AjaxUserDetails = function(){
+
+    dhx.ajax().get("data/UserDetails.php", function(text,xml){
+    msgbox(text,xml);
+    });
 
 };
 

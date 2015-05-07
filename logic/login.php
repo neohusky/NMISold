@@ -15,6 +15,8 @@
   $username=$_POST['username'];
   $password=$_POST['password'];
 
+$ad = new ActiveDirectory();
+$login = $ad->authenticate($username, $password);
 
 if ($username == "test") {
     $_SESSION['login_user']=$username; // Initializing Session
@@ -23,8 +25,8 @@ if ($username == "test") {
   header("location: ./index.html?id=$username"); // Redirecting To Other Page
 
 };
-$ad = new ActiveDirectory();
-    $login = $ad->authenticate($username, $password);
+
+
 
   if ($login == 1) {
 

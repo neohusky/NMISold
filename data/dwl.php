@@ -8,4 +8,5 @@
     $grid->render_table("dicomworklist",
     					"StudyInstanceUID",
     					"PatientName, PatientID, PatientDOB, PatientSex, RequestedProcedureDescription, CurrentPatientLocation, Modality");
+
 ?>
