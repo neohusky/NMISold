@@ -5,8 +5,27 @@ var StaffName;
 var StaffPosition;
 
 
+
 function init() {
+
+
+    //Set Application Timer
+
+    window.setInterval(function(){
+
+
+        dhtmlx.message({
+                text: "An error has occured.<br /> Please, see the log file!",
+                expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
+                type: "myNotice" // 'customCss' - css class
+        });
+
+        },
+    5000);
+
     //Set Application Layout
+
+
     hla.layout = new dhtmlXLayoutObject(document.body, '3L');
     hla.layout.cells("a").setText('Main');
     hla.layout.cells("a").hideHeader();
@@ -35,6 +54,7 @@ function init() {
     });
     maintoolbar.attachEvent("onClick",hla.tlbMain_click);
     maintoolbar.setIconSize(48);
+
 
 
 };
@@ -174,25 +194,44 @@ hla.fOpenPatientsMenu = function() {
 
     toolbar.attachEvent("onClick", function(id){
 
-        if (id == "btnRefresh") RunDWLquery();
+        if (id == "btnRefresh") hla.PatientListRefresh();
         if (id == "btnWorklist")
         if (id == "btnToday")
         if (id == "btnLast72") //hla.layout.cells("a").detachObject(true);
         if (id == "btnDelete");
     });
 
+    //Open Patient to do worklist
+    hla.PatientWorklistTodo()
+
+
+
+};
+
+
+hla.PatientWorklistTodo = function(){
     hla.grid =  hla.layout.cells("a").attachGrid();
 
     hla.grid.setHeader("PatientName, PatientID, PatientDOB, PatientSex, RequestedProcedureDescription");
-    hla.grid.setColTypes("ed,ed,ed,ed,ed");
+    hla.grid.setColTypes("ro,ro,ro,ro,ro");
     hla.grid.setColSorting('str,str,str,str,str');
     hla.grid.setInitWidths('*,*,*,*,*');
     hla.grid.load("data/dwl.php");
     hla.grid.init();
 
-
+    hla.grid.attachEvent("onRowSelect", function(id,ind){
+        msgbox(("Rows with id: "+id+" was selected by user. Index was: "+ind));
+    });
 };
 
+
+hla.PatientListRefresh = function(){
+
+
+    RunDWLquery();
+    hla.fOpenPatientsMenu();
+
+};
 
 
 hla.GeneratorInventory = function() {
@@ -592,6 +631,35 @@ hla.fTest = function() {
 
 
     });
+// ***** Session Timeout Warning and Redirect mReschke 2010-09-29 ***** //
+    function InitSessionTimer() {
+        /* mReschke 2010-09-29 */
+        warn_sec = 1 * 10 * 1000;             //Warning time in milliseconds
+        timeout_sec = 2 * 10 * 1000;          //Actual timeout in milliseconds
+        show_warning = true;
+        epoch = new Date().getTime();
+        CheckSessionStatus();
+    }
 
+    function CheckSessionStatus() {
+        /* mReschke 2010-09-29 */
+
+        //Check for session warning
+        epoch2 = new Date().getTime();
+        if (epoch2 > epoch + warn_sec && epoch2 < epoch + timeout_sec && show_warning) {
+            show_warning = false; //Don't show again
+            alert_shown = true;
+
+            dhtmlx.alert("Your session will timeout in " + Math.round((timeout_sec - warn_sec) / 60000) + " minute, please click a button or navigate to another page to refresh your session before it expires.");
+            down = setTimeout("CheckSessionStatus();", 1000);
+        } else if (epoch2 > epoch + timeout_sec) {
+            dhtmlx.alert("Your session has timed out.");
+            window.location.href = 'http://yoursite.com/some/page/to/redirect/to';
+        } else {
+            down = setTimeout("CheckSessionStatus();", 1000);
+        }
+    }
+
+// ******************************************************************** //
 
 };

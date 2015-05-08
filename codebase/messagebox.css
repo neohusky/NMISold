@@ -1,0 +1,18 @@
+
+.dhtmlx-myCss{
+    font-weight:bold !important;
+    color:white !important;
+    background-color: rgb(76, 157, 78) !important;
+}
+
+.dhtmlx-myAlert{
+    font-weight:bold !important;
+    color:white !important;
+    background-color: rgb(255, 132, 140) !important;
+}
+
+.dhtmlx-myNotice{
+    font-weight:bold !important;
+    color: #000000 !important;
+    background-color: rgb(255, 238, 160) !important;
+}

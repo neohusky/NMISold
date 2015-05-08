@@ -1,6 +1,6 @@
 <?php
 
-$mysql_host = "localhost";
+$mysql_host = "10.7.145.68";
 $mysql_user = "nucmed";
 $mysql_pasw = "nucmed";
 $mysql_db   = "NMIS";
