@@ -8,5 +8,5 @@
 	$form->enable_log("log.txt",true);
 	$form->render_table("Settings",
 						"id",
-						"DWL_ServerAET, DWL_ServerIP, DWL_ServerPort, DWL_OwnAET, DWL_OwnIP, DWL_SearchModality, DWL_RefreshTime");
+						"DWL_ServerAET, DWL_ServerIP, DWL_ServerPort, DWL_OwnAET, DWL_OwnIP, DWL_SearchModality, DWL_RefreshTime, App_TimeOut, App_HotlabConnectServer");
 ?>

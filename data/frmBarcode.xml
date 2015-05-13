@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+
+<items>
+            <!--<item type="label" label="New Generator" labelWidth="auto" inputWidth="auto"/>-->
+            <item type="settings" position="label-left" labelWidth="130" inputWidth="150" noteWidth="150"/>
+
+            <item type="input" name="Barcode" label="" tooltip="Scanned Barcode" required="false" hidden= "false"/>
+            <item type="input" name="Date" label="" tooltip="" required="false" hidden= "false"/>
+            <item type="input" name="Time" label="" tooltip="" required="false" hidden= "false"/>
+
+</items>

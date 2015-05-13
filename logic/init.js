@@ -34,10 +34,10 @@ function init() {
     hla.layout.cells("b").setWidth('300');
     hla.layout.cells("b").fixSize(1,1);
 
-    hla.layout.cells("c").setText('BarcodeType1');
+    hla.layout.cells("c").setText('Barcode');
     hla.layout.cells("c").setHeight('300');
     hla.layout.cells("c").setWidth('300');
-
+    hla.BarcodeForm();
 
     GetUserDetails(); //Gets Staff user details
     statusbar = hla.toolbar = hla.layout.attachStatusBar();
@@ -59,8 +59,15 @@ function init() {
 
 };
 
+hla.BarcodeForm = function() {
+    mainForm = hla.layout.cells("c").attachForm();
+    mainForm.setFontSize("20px");
 
-
+    mainForm.loadStruct("data/frmBarcode.xml", function () {
+        mainForm.setItemValue("Date",getDateTime());
+        mainForm.setItemValue("Time",getDateTime());
+    });
+};
 
 function getUrlVars() {
     var vars = {};
@@ -446,6 +453,8 @@ hla.OpenSettings = function() {
     myTabbar.cells("a3").attachObject("tab3");
     });
     myForm.load("data/frmSettings.php?id=1");
+
+
 };
 
 hla.OpenSettingsMenu = function() {
@@ -467,6 +476,15 @@ hla.OpenSettingsMenu = function() {
     myForm.load("data/frmSettings.php?id=1");
 
     myForm.setFontSize("20px");
+
+    myForm.attachEvent("onButtonClick", function(id){
+        if (id == "save")
+            myForm.save();
+
+        if (id == "cancel") hla.layout.cells("a").detachObject(true);
+    });
+    var dp = new dataProcessor("data/frmSettings.php");
+    dp.init(myForm);
 };
 
 hla.OpenDaySheetMenu = function() {

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <items>
-
+    <item type="block" id="All">
     <item type="block" id="tab1">
-        <item type="fieldset" name="data" label="Server" inputWidth="auto">
+        <item type="fieldset" name="data" label="Dicom Worklist" inputWidth="auto">
                     <item type="input" name="DWL_ServerAET" label="Server AET" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="121"/>
                     <item type="input" name="DWL_ServerIP" label="Server IP Address" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="171"/>
                     <item type="input" name="DWL_ServerPort" label="Server Port" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="71"/>
@@ -12,12 +12,18 @@
 
     </item>
     <item type="block" id="tab2">
-        <item type="fieldset" name="data2" label="Query Parameters" inputWidth="auto">
+        <item type="fieldset" name="data2" label="DWL Query Parameters" inputWidth="auto">
             <item type="input" name="DWL_RefreshTime" label="Auto Refresh Time (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
             <item type="input" name="DWL_SearchModality" label="Modality" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
         </item>
     </item>
     <item type="block" id="tab3">
-
+        <item type="fieldset" name="data3" label="Application" inputWidth="auto">
+            <item type="input" name="App_TimeOut" label="Application Timeout (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
+            <item type="input" name="App_HotlabConnectServer" label="Hotlab Connect Server" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+        </item>
+    </item>
+    <item type="button" name="save" value= "Submit" offsetTop="10"/>
+    <item type="button" name="cancel" value= "Cancel" offsetTop="10"/>
     </item>
 </items>
