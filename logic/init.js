@@ -1,9 +1,10 @@
 var hla = {};
-var layout,maintoolbar,mainForm,mainDP,statusbar,grid;
+var layout,maintoolbar,mainForm,mainDP,statusbar,grid,formBarcode;
 var UserName = getUrlVars()["id"];
 var StaffName;
 var StaffPosition;
-
+var CalibratorData;
+var BarcodeData;
 
 
 function init() {
@@ -14,14 +15,24 @@ function init() {
     window.setInterval(function(){
 
 
-        dhtmlx.message({
+/*        dhtmlx.message({
                 text: "An error has occured.<br /> Please, see the log file!",
                 expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
                 type: "myNotice" // 'customCss' - css class
-        });
+        });*/
+            dhtmlx.message({
+             text: "Barcode.<br />" + BarcodeData,
+             expire: 1000, //milliseconds. You can use negative value (-1) to make notice persistent.
+             type: "myNotice" // 'customCss' - css class
+             });
 
+            hla.GetHotlabData();
+            formBarcode.setItemValue("Barcode",BarcodeData);
+            formBarcode.send()
         },
-    5000);
+
+
+    2000);
 
     //Set Application Layout
 
@@ -57,15 +68,16 @@ function init() {
 
 
 
-};
-
+}
 hla.BarcodeForm = function() {
-    mainForm = hla.layout.cells("c").attachForm();
-    mainForm.setFontSize("20px");
+    formBarcode = hla.layout.cells("c").attachForm();
+    formBarcode.setFontSize("20px");
 
-    mainForm.loadStruct("data/frmBarcode.xml", function () {
-        mainForm.setItemValue("Date",getDateTime());
-        mainForm.setItemValue("Time",getDateTime());
+    formBarcode.loadStruct("data/frmBarcode.xml", function () {
+
+        formBarcode.setItemValue("Barcode",BarcodeData);
+        formBarcode.setItemValue("Date",getDateTime());
+        formBarcode.setItemValue("Time",getDateTime());
     });
 };
 
@@ -101,7 +113,7 @@ hla.tlbMain_click = function(id) {
             hla.OpenGenerators();
             break;
         case "btnAdministration":
-            hla.Profile();
+            hla.GetHotlabData();
             break;
         case "btnSettings":
             hla.OpenSettingsMenu();
@@ -117,6 +129,26 @@ hla.tlbMain_click = function(id) {
             break;
 
     }
+};
+hla.GetHotlabData = function(){
+    url = "http://192.168.0.110:8181";
+
+    dhx.ajax().get(url, function(text,xml){
+
+        var obj = dhx.DataDriver.json.toObject(text,xml);
+
+        CalibratorData = obj["CalibratorData"];
+        BarcodeData = obj["BarcodeData"];
+
+        });
+    if  (CalibratorData === undefined || CalibratorData === null) {
+        CalibratorData = ""
+    }
+    if  (BarcodeData === undefined || BarcodeData === null) {
+        BarcodeData = ""
+    }
+
+
 };
 
 
@@ -342,12 +374,9 @@ function doOnRowDblClicked(rowId){
         //text: "Rows with id: "+id+" was selected by " +StaffName,
 
         expire: 2000
-    })
+    });
     statusbar.setText("Welcome " + " " + StaffName);
-};
-
-
-
+}
 hla.fGeneratorsAddNew = function() {
     mainForm = hla.layout.cells("a").attachForm();
     mainForm.setFontSize("20px");
@@ -421,6 +450,7 @@ GetUserDetails = function(){
 
     dhx.ajax().get("data/UserDetails.php?id="+UserName, function(text,xml){
         var UserDetails = dhx.DataDriver.json.toObject(text,xml);
+
         StaffName = UserDetails.UserDetails["0"].Staffname;
         StaffPosition =UserDetails.UserDetails["0"].Position;
 
@@ -579,7 +609,7 @@ hla.fTestForm = function() {
 function msgbox(Text) {
     dhtmlx.alert(Text);
     console.log("Message Box " + Text);
-};
+}
 function protocolIt(str){
     var p = document.getElementById("protocol");
     p.innerHTML = "<li style='height:auto;'>"+str+"</li>" + p.innerHTML
