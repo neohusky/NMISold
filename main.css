@@ -1,0 +1,104 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+    font: 12pt "Helvetica";
+}
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.page {
+    width: 80mm;
+    height: 40mm;
+    padding: 2mm;
+    margin: 1mm auto;
+    /*border: 1px #D3D3D3 solid;*/
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.Barcode {
+    padding: 0mm;
+    border: 1mm red solid;
+    /*outline: 1mm #FFEAEA solid;*/
+    position:fixed;
+    width:15mm;
+    height:40mm;
+    left:0mm;
+    top:0mm;
+}
+.Main {
+    padding: 0mm;
+    border: 1mm red solid;
+    /*outline: 1mm #FFEAEA solid;*/
+    position:fixed;
+    width:60mm;
+    height:40mm;
+    left:15mm;
+    top:0mm;
+}
+
+.MainTitle {
+    position:relative;
+    width:60mm;
+    font-size:14px;
+    text-align:center;
+    font-weight:bold;
+}
+.Title {
+    position:relative;
+    width:60mm;
+    font-size:14px;
+    text-align:center;
+}
+
+.StandardField {
+    position:relative;
+    width:50mm;
+    font-size:10px;
+    text-align:left;
+    font-weight:normal;
+    left:1mm;
+    top:2mm;
+}
+.StandardLabel {
+    position:relative;
+    float:left;
+    width:20mm;
+    font-size:10px;
+    text-align:right;
+    font-weight:normal;
+    top:2mm;
+}
+
+
+.Sign {
+    position:absolute;
+    width:9mm;
+    height:9mm;
+    bottom:1mm;
+    right:1mm;
+}
+@page {
+    size: custom;
+    margin: 0;
+}
+@media print {
+    html, body {
+        width: 80mm;
+        height: 40mm;
+    }
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+    }
+}

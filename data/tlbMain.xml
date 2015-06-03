@@ -23,6 +23,10 @@
     <item id="sep09" type="separator"/>
     <item type="button" id="btnLogout" text="Logout" img="" title="" />
     <item type="button" id="btnUser" text="user" img="" title="" />
+    <item id="sep09" type="separator"/>
+    <item id="sep09" type="separator"/>
+    <item type="button" id="btnTest" text="Test" img="" title="" />
+
 
 </toolbar>
 

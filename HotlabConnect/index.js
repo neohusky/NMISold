@@ -18,7 +18,8 @@ var serialport = require('serialport');// include the library
 var keypress = require('keypress'); // include keypress library
 
 SerialPort = serialport.SerialPort,    // make a local instance of it
-portName = "/dev/ttyAMA0";            // get port name from the command line
+portName = process.argv[2];            // get port name from the command line
+//portName = "/dev/ttyUSB0";            // get port name from the command line
 
 
 
@@ -47,6 +48,10 @@ app.start();
 
 var myPort = new SerialPort(portName, {
   baudRate: 4800,
+  databits: 8,
+  stopbits: 1,
+  parity: 'none',
+  
   // look for return and newline at the end of each data packet:
   parser: serialport.parsers.readline('\r\n')
 });
@@ -81,8 +86,8 @@ function sendData(request) {
   console.log("Got a client request, sending them the data.");
   // respond to the client request with the latest serial string:
 
-serialData ="~1 Tc-99m 35.1 1.293 GBq";
-LastBarCode ="E2841 /n";
+//serialData ="~1 Tc-99m 35.1 1.293 GBq";
+//LastBarCode ="E2841 /n";
 
   var data = '{"data":[' +
       '{"CalibratorData":"'+serialData+'" , ' +

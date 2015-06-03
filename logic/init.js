@@ -15,24 +15,24 @@ function init() {
     window.setInterval(function(){
 
 
-/*        dhtmlx.message({
-                text: "An error has occured.<br /> Please, see the log file!",
-                expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
-                type: "myNotice" // 'customCss' - css class
-        });*/
-            dhtmlx.message({
-             text: "Barcode.<br />" + BarcodeData,
-             expire: 1000, //milliseconds. You can use negative value (-1) to make notice persistent.
+            /*        dhtmlx.message({
+             text: "An error has occured.<br /> Please, see the log file!",
+             expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
              type: "myNotice" // 'customCss' - css class
-             });
+             });*/
+            dhtmlx.message({
+                text: "Barcode.<br />" + BarcodeData,
+                expire: 1000, //milliseconds. You can use negative value (-1) to make notice persistent.
+                type: "myNotice" // 'customCss' - css class
+            });
 
             hla.GetHotlabData();
-            formBarcode.setItemValue("Barcode",BarcodeData);
-            formBarcode.send()
+            statusbar.setText("Barcode Scanned: "+BarcodeData);
+            //formBarcode.setItemValue("Barcode",BarcodeData);
         },
 
 
-    2000);
+        2000);
 
     //Set Application Layout
 
@@ -131,7 +131,7 @@ hla.tlbMain_click = function(id) {
     }
 };
 hla.GetHotlabData = function(){
-    url = "http://192.168.0.110:8181";
+    url = "http://10.7.145.98:8181";
 
     dhx.ajax().get(url, function(text,xml){
 
@@ -140,7 +140,7 @@ hla.GetHotlabData = function(){
         CalibratorData = obj["CalibratorData"];
         BarcodeData = obj["BarcodeData"];
 
-        });
+    });
     if  (CalibratorData === undefined || CalibratorData === null) {
         CalibratorData = ""
     }
@@ -235,9 +235,9 @@ hla.fOpenPatientsMenu = function() {
 
         if (id == "btnRefresh") hla.PatientListRefresh();
         if (id == "btnWorklist")
-        if (id == "btnToday")
-        if (id == "btnLast72") //hla.layout.cells("a").detachObject(true);
-        if (id == "btnDelete");
+            if (id == "btnToday")
+                if (id == "btnLast72") //hla.layout.cells("a").detachObject(true);
+                    if (id == "btnDelete");
     });
 
     //Open Patient to do worklist
@@ -322,7 +322,7 @@ hla.testAddNew = function(){
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
             mainForm.save();
-            hla.layout.cells("a").detachObject(true);
+        hla.layout.cells("a").detachObject(true);
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 
@@ -352,7 +352,7 @@ hla.Staff = function() {
         //grid.forEachRow(function(id,ind) {
 
         //})
-        });
+    });
 
 
 
@@ -395,14 +395,14 @@ hla.fGeneratorsAddNew = function() {
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 
-/*    mainForm.attachEvent("onAfterValidate", function(status) {
-        if (status == true) {
-            alert('todo ok');
-            mainForm.save();
-            hla.layout.cells("a").detachObject(true);
+    /*    mainForm.attachEvent("onAfterValidate", function(status) {
+     if (status == true) {
+     alert('todo ok');
+     mainForm.save();
+     hla.layout.cells("a").detachObject(true);
 
-        }
-    });*/
+     }
+     });*/
     var dp = new dataProcessor("data/generators.php");
     dp.init(mainForm);
 };
@@ -479,8 +479,8 @@ hla.OpenSettings = function() {
 
     myForm = myTabbar.cells("a1").attachForm();
     myForm.loadStruct("data/frmSettings.xml", function(){
-    myTabbar.cells("a2").attachObject("tab2");
-    myTabbar.cells("a3").attachObject("tab3");
+        myTabbar.cells("a2").attachObject("tab2");
+        myTabbar.cells("a3").attachObject("tab3");
     });
     myForm.load("data/frmSettings.php?id=1");
 
@@ -585,7 +585,7 @@ hla.fTestForm = function() {
     //console.log(getDateTime());
     mainForm = hla.layout.cells("a").attachForm();
     mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
-        });
+    });
     mainForm.setFontSize("20px");
 
 
@@ -642,10 +642,10 @@ hla.fTest = function() {
         if (name == "BatchNo") {
             var opts = mainForm.getInput("BatchNo");
             //var id = mainForm._getHandle();
-           /* dhtmlx.message({
-                type: "confirm-warning",
-                text: opts
-            });*/
+            /* dhtmlx.message({
+             type: "confirm-warning",
+             text: opts
+             });*/
 
             var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure",
                 "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript",

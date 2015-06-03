@@ -8,5 +8,5 @@
 	$form->enable_log("log.txt",true);
 	$form->render_table("generators",
 						"id",
-						"BatchNo,Supplier,ArrivalDate,Username");
+						"id,BatchNo,Supplier,ArrivalDate,Username");
 ?>

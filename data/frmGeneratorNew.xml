@@ -22,7 +22,7 @@
             <item type="settings" position="label-left" labelWidth="130" inputWidth="150" noteWidth="150"/>
 
 
-
+            <item type="input" name="id" label="id" tooltip="id" required="false" hidden= "false"/>
             <item type="input" name="BatchNo" label="Batch No" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false"/>
             <item type="input" name="Supplier" label="Supplier" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false"/>
            <!-- <item type="combo" name="cboSupplier" value="Global Medical" label="Supplier" tooltip="Select the supplier name" required="true" filtering="true" connector="data/cboSuppliers.php"/>-->
