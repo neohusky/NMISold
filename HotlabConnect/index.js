@@ -1,59 +1,154 @@
-/*
-
-Simple Serial Server
-using servi.js and p5.js
-
-To call this type the following on the command line:
-node index.js portName
-
-where portname is the name of your serial port, e.g. /dev/tty.usbserial-xxxx (on OSX)
-
-created 19 Sept 2014
-modified 17 Mar 2015
-by Tom Igoe
-
-*/
-
-var serialport = require('serialport');// include the library
-var keypress = require('keypress'); // include keypress library
-
-SerialPort = serialport.SerialPort,    // make a local instance of it
-portName = process.argv[2];            // get port name from the command line
-//portName = "/dev/ttyUSB0";            // get port name from the command line
+var express = require('express')
+    , cors = require('cors')
+    , app = express()
+    , serialport = require('serialport')
+    , keypress = require('keypress')
+    , calibrator = require('./calibrator.js');
 
 
 
-var serialData = "";                    // latest data saved from the serial port
-var BarcodeData ="";                    // latest data saved from the keyboard
-var LastBarCode ="";                     //Last read barcode
-var servi = require('servi');          // include the servi library
+///Serial Port Params
+portName = "/dev/ttyUSB0";            // get port name from the command line
+baud = 4800;
+//////////////////
+
+/////////////////////
+webport = 8080;
+///////////////////
 
 
-var app = new servi(false);            // servi instance
-app.port(8080);                        // port number to run the server on
+var CalIsotope,CalUnits,CalActivity,serialData,ScannedBarcode,LastBarCode,StatusString;
+ScannedBarcode = "";
+//////Set up web server
+app.use(cors());
 
-// configure the server's behavior:
-app.serveFiles("public");              // serve all static HTML files from /public
-app.serveFiles("PDFToPrint");     // serve static HTML from PDFToPrint folder
+app.get('/', function(req, res, next){
+
+    //serialData ='~1 Tc-99m 35.1 1.293 GBq';
+    //LastBarCode ='E2841 /n';
+
+/*    var data = '{"data":[' +
+        '{"CalibratorData":"'+serialData+'" , ' +
+        '"BarcodeData":"'+ LastBarCode +'"}]}';*/
+    //res.json({msg: 'This is CORS-enabled for all origins!'});
+   
+    res.json({Status:StatusString,
+        CalIsotope:calibrator.IsotopeA100(serialData),
+        CalActivity:calibrator.ActivityA100(serialData),
+        CalUnits:calibrator.UnitsA100(serialData),
+        BarcodeData:LastBarCode});
+	    
+//Erase LastBarcode when value has been retrieved
+    LastBarCode = ""
+});
+
+// accept get request at /user
+app.get('/test', function (req, res) {
+    res.send('Got a get request at /test');
+    myPort.write("A\n C\n E\n G\n I\n J\n I\n G\n E\n C\n A\n");
+});
+
+// accept get request at /user
+app.get('/resetcomm', function (req, res) {
+    myPort.close();
+    myPort.open();
+
+    console.log("comm has been reset");
+    res.send('Comm has been reset');
+});
+
+app.get('/control/:isotope', function(req, res) {
+    var isotope = req.params.isotope;
+
+    switch(isotope)
+    {
+        case "Tc-99m":
+            console.log("A");
+            myPort.write("A\n");
+            break;
+        case "Mo-99":
+            console.log("B");
+            myPort.write("B\n");
+            break;
+        case "Tl-201":
+            console.log("C");
+            myPort.write("C\n");
+            break;
+        case "I-123":
+            console.log("D");
+            myPort.write("D\n");
+            break;
+        case "Xe-133":
+            console.log("E");
+            myPort.write("E\n");
+            break;
+        case "Ga-67":
+            console.log("F");
+            myPort.write("F\n");
+            break;
+        case "In-111":
+            console.log("G");
+            myPort.write("G\n");
+            break;
+        case "I-131":
+            console.log("H");
+            myPort.write("H\n");
+            break;
+        case "Cs-137":
+            console.log("I");
+            myPort.write("I\n");
+            break;
+        case "Co-57":
+            console.log("J");
+            myPort.write("J\n");
+            break;
+        case "#2":
+            console.log("K");
+            myPort.write("K\n");
+            break;
+        case "#1":
+            console.log("L");
+            myPort.write("L\n");
+            break;
+        case "OTHER":
+            console.log("M");
+            myPort.write("M\n");
+            break;
+        case "BKGND":
+            console.log("P");
+            myPort.write("P\n");
+            break;
+        case "TEST":
+            console.log("D");
+            myPort.write("D\n");
+            break;
+        default:
+            console.log("Not recognised Isotope");
+        //res.send("Not recognised Isotope " +isotope);
+    }
 
 
-app.route('/data', sendData);          // route requests for /data to sendData() function
-route('/', form); // route requests for / to form()
-route('/upload', upload);// route requests for /upload to upload()
-// now that everything is configured, start the server:
 
 
-// now that everything is configured, start the server:
-app.start();
 
+    res.send(isotope);
+});
+
+
+
+app.listen(webport, function(){
+    console.log('CORS-enabled web server listening on port ' + webport);
+});
+
+
+/////////////////////////////
+
+/////////////////Set up Serial Port Functions
+SerialPort = serialport.SerialPort;    // make a local instance of it
 var myPort = new SerialPort(portName, {
-  baudRate: 4800,
-  databits: 8,
-  stopbits: 1,
-  parity: 'none',
-  
-  // look for return and newline at the end of each data packet:
-  parser: serialport.parsers.readline('\r\n')
+    baudRate: baud,
+    // look for return and newline at the end of each data packet:
+    parser: serialport.parsers.readline('\n')
 });
 
 // these are the definitions for the serial events:
@@ -64,50 +159,26 @@ myPort.on('error', showError);
 
 // these are the functions called when the serial events occur:
 function showPortOpen() {
-  console.log('port open. Data rate: ' + myPort.options.baudRate);
+    console.log('port open. Data rate: ' + myPort.options.baudRate);
 }
 
 function saveLatestData(data) {
-  console.log("Serial Data:"+data);
-  serialData = data;
+    console.log("Serial Data:"+data);
+    serialData = data;
+    StatusString = "OK";
 }
 
 function showPortClose() {
-  console.log('port closed.');
+    console.log('port closed.');
+    StatusString = "Comm Closed";
 }
 
 function showError(error) {
-  console.log('Serial port error: ' + error);
+    console.log('Serial port error: ' + error);
+    StatusString = "Comm Error";
 }
+///////////////////////////////////////////////
 
-// ------------------------ Server function
-function sendData(request) {
-  // print out the fact that a client HTTP request came in to the server:
-  console.log("Got a client request, sending them the data.");
-  // respond to the client request with the latest serial string:
-
-//serialData ="~1 Tc-99m 35.1 1.293 GBq";
-//LastBarCode ="E2841 /n";
-
-  var data = '{"data":[' +
-      '{"CalibratorData":"'+serialData+'" , ' +
-      '"BarcodeData":"'+ LastBarCode +'"}]}';
-
-
-  request.respond(data);
-}
-
-function form(request){
-    request.serveFile('form.html');
-}
-
-function upload(request) {
-    var file = request.files.file;
-    uploadFile(file, "PDFToPrint");
-    request.respond('<div> Done </div>');
-}
-
-//-----------------------Server functions
 
 // make `process.stdin` begin emitting "keypress" events
 keypress(process.stdin);
@@ -115,7 +186,7 @@ keypress(process.stdin);
 process.stdin.on('keypress', function (ch, key) {
     //console.log('got "keypress"', ch); //original script
 
-    BarcodeData = BarcodeData + ch;
+    ScannedBarcode = ScannedBarcode + ch;
 
 
     /*
@@ -124,10 +195,11 @@ process.stdin.on('keypress', function (ch, key) {
      }
      */
     if (key && key.name == 'enter') {
-        BarcodeData = BarcodeData +"/n";
-        console.log("Barcode:"+BarcodeData);
-        LastBarCode = BarcodeData;
-        BarcodeData ="";
+
+        //ScannedBarcode = ScannedBarcode; //Add +"/n" if CR is required
+        console.log("Barcode:"+ScannedBarcode);
+        LastBarCode = ScannedBarcode;
+        ScannedBarcode ="";
     }
 });
 //process.stdin.setRawMode(true); //Use this to output one letter at a time

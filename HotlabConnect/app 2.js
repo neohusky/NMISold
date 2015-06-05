@@ -2,7 +2,9 @@ var express = require('express')
     , cors = require('cors')
     , app = express()
     , serialport = require('serialport')
-    , keypress = require('keypress');
+    , keypress = require('keypress')
+    , calibrator = require('./calibrator.js');
+
 
 
 ///Serial Port Params
@@ -10,8 +12,8 @@ portName = "/dev/ttyUSB0";            // get port name from the command line
 baud = 4800;
 //////////////////
 
-var CalIsotope,CalUnits,CalActivity,serialData,ScannedBarcode,LastBarCode,StatusString;
-
+var serialData,ScannedBarcode,LastBarCode,StatusString;
+ScannedBarcode = "";
 //////Set up web server
 app.use(cors());
 
@@ -25,9 +27,13 @@ app.get('/', function(req, res, next){
         '"BarcodeData":"'+ LastBarCode +'"}]}';*/
     //res.json({msg: 'This is CORS-enabled for all origins!'});
    StatusString = "OK";
-    res.json({Status:StatusString,CalibratorData:serialData,BarcodeData:LastBarCode});
+    res.json({Status:StatusString,
+        CalIsotope:calibrator.IsotopeA100(serialData),
+        CalActivity:calibrator.ActivityA100(serialData),
+        CalUnits:calibrator.UnitsA100(serialData),
+        BarcodeData:LastBarCode});
     //Erase LastBarcode when value has been retrieved
-    //LastBarCode = ""
+    LastBarCode = ""
 });
 
 // accept get request at /user
@@ -95,7 +101,7 @@ process.stdin.on('keypress', function (ch, key) {
      */
     if (key && key.name == 'enter') {
 
-        ScannedBarcode = ScannedBarcode; //Add +"/n" if CR is required
+        //ScannedBarcode = ScannedBarcode; //Add +"/n" if CR is required
         console.log("Barcode:"+ScannedBarcode);
         LastBarCode = ScannedBarcode;
         ScannedBarcode ="";
@@ -103,53 +109,3 @@ process.stdin.on('keypress', function (ch, key) {
 });
 //process.stdin.setRawMode(true); //Use this to output one letter at a time
 process.stdin.resume();
-
-
-/*
-
-
-
-Isotopestring = Left(inputstring, 9);
-Isotopestring = Right(Isotopestring, 6); //removes the tilde
-Isotopestring = Trim(Isotopestring); //removes the blanks
-
-
-//////////////////////////Check units are SI
-Unitstring = Right(inputstring, 3)
-Unitstring = Trim(Unitstring)
-If Unitstring = "GBq" Or Unitstring = "MBq" Then
-// do nothing as this is the correct string/units
-Else
-MsgBox "The calibrator is not set to SI units.  Please correct and retry.", vbCritical, "Error- non-SI units."
-Exit Function
-End If
-
-
-'Get the activity
-Activitystring = Right(inputstring, 11)
-Activitystring = Left(Activitystring, 7) 'removes units
-Activitystring = Trim(Activitystring)  'removes blanks
-
-'check activity measured is not negative
-If Left(Activitystring, 1) = "-" Then
-MsgBox "The calibrator reading is negative.  Please check the calibrator and retry, or seek assistance.", vbCritical, "Error- negative units."
-Exit Function
-End If
-
-'change activity string to single data type for maths.
-
-'Convertedactivitystring = CSng(Activitystring)
-Convertedactivitystring = CDbl(Activitystring) 'Changed to doble to allow for decimal value
-
-
-' Check units and if GBq then multiply by 1000. Need to round the integer for decimal point after any multiplication.
-If Unitstring = "GBq" Then
-Convertedactivitystring = Convertedactivitystring * 1000
-End If
-' Don't want to strip Decimal 'strip decimal points
-
-'Convertedactivitystring = Int(Convertedactivitystring) 'debug note- this may have to be a double not a single.
-
-
-
-*/
