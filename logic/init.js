@@ -63,12 +63,11 @@ function init() {
     statusbar.setText("Welcome " + " " + UserName);
 
 
-
     maintoolbar = hla.layout.attachToolbar();
     //hla.toolbar.setIconPath("codebase/imgs/");
     //maintoolbar.loadStruct('data/tlbMain.xml');
 
-    maintoolbar.loadStruct('data/tlbMain.xml',function(){
+    maintoolbar.loadStruct("data/tlbMain.xml",function(){
         maintoolbar.setItemText("btnUser", UserName);
     });
     maintoolbar.attachEvent("onClick",hla.tlbMain_click);
@@ -139,7 +138,7 @@ hla.tlbMain_click = function(id) {
     }
 };
 hla.GetHotlabData = function(param){
-    url = "http://10.7.145.98:8080/"+param;
+    url = "http://localhost:8080/"+param;
 
     dhx.ajax().get(url, function(text,xml){
 
@@ -396,6 +395,7 @@ function doOnRowDblClicked(rowId){
     });
     statusbar.setText("Welcome " + " " + StaffName);
 }
+
 hla.fGeneratorsAddNew = function() {
     mainForm = hla.layout.cells("a").attachForm();
     mainForm.setFontSize("20px");
@@ -410,7 +410,7 @@ hla.fGeneratorsAddNew = function() {
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
             mainForm.save();
-
+            GetLastAddedId("eluates");
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 
@@ -465,6 +465,21 @@ RunDWLquery = function(){
 
 };
 
+GetLastAddedId = function(tble){
+
+    dhx.ajax().get("data/lastadded.php?id="+tble, function(text,xml){
+        var id = dhx.DataDriver.json.toObject(text,xml);
+
+        id = id.id["0"].id;
+
+        dhtmlx.message({
+         text: "The id is:<br />"+id+" .table="+tble ,
+         expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
+         type: "myNotice" // 'customCss' - css class
+         });
+    });
+
+};
 GetUserDetails = function(){
 
     dhx.ajax().get("data/UserDetails.php?id="+UserName, function(text,xml){
