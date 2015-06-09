@@ -20,9 +20,16 @@
     <item type="block" id="tab3">
         <item type="fieldset" name="data3" label="Application" inputWidth="auto">
             <item type="input" name="App_TimeOut" label="Application Timeout (s)" labelWidth="250" inputWidth="250" labelLeft="450" labelTop="50" inputLeft="450" inputTop="196"/>
-            <item type="input" name="App_HotlabConnectServer" label="Hotlab Connect Server" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+            <item type="fieldset" name="data3" label="Hotlab Connect" inputWidth="auto">
+                <item type="input" name="App_HotlabConnectServer" label="Hotlab Connect Server" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+                <item type="input" name="App_HotlabConnectPort" label="Hotlab Connect Port" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
+                <item type="button" name="reboot" value= "Reboot" offsetTop="10"/>
+            </item>
+
         </item>
     </item>
+
+
     <item type="button" name="save" value= "Submit" offsetTop="10"/>
     <item type="button" name="cancel" value= "Cancel" offsetTop="10"/>
     </item>

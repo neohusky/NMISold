@@ -22,7 +22,7 @@ ScannedBarcode = "";
 //////Set up web server
 app.use(cors());
 
-app.get('/', function(req, res, next){
+app.get('/data', function(req, res, next){
 
     //serialData ='~1 Tc-99m 35.1 1.293 GBq';
     //LastBarCode ='E2841 /n';
@@ -31,13 +31,21 @@ app.get('/', function(req, res, next){
         '{"CalibratorData":"'+serialData+'" , ' +
         '"BarcodeData":"'+ LastBarCode +'"}]}';*/
     //res.json({msg: 'This is CORS-enabled for all origins!'});
-   
-    res.json({Status:StatusString,
-        CalIsotope:calibrator.IsotopeA100(serialData),
-        CalActivity:calibrator.ActivityA100(serialData),
-        CalUnits:calibrator.UnitsA100(serialData),
-        BarcodeData:LastBarCode});
-	    
+    if(!serialData){
+        StatusString="No Comm";
+        res.json({Status:StatusString,
+            BarcodeData:LastBarCode});
+
+    } else {
+
+        res.json({
+            Status: StatusString,
+            CalIsotope: calibrator.IsotopeA100(serialData),
+            CalActivity: calibrator.ActivityA100(serialData),
+            CalUnits: calibrator.UnitsA100(serialData),
+            BarcodeData: LastBarCode
+        });
+    }
 //Erase LastBarcode when value has been retrieved
     LastBarCode = ""
 });
@@ -55,6 +63,23 @@ app.get('/resetcomm', function (req, res) {
 
     console.log("comm has been reset");
     res.send('Comm has been reset');
+});
+
+app.get('/reboot', function (req, res) {
+    var exec = require('child_process').exec;
+    exec('sudo reboot', function (error, stdout, stderr) {
+        StatusString="Rebooting...";
+        res.json({Status:StatusString});
+        // output is in stdout
+    });
+});
+
+app.get('/shutdown', function (req, res) {
+    var exec = require('child_process').exec;
+    exec('sudo shutdown -h now', function (error, stdout, stderr) {
+        res.send('Shutting down....');
+        // output is in stdout
+    });
 });
 
 app.get('/control/:isotope', function(req, res) {

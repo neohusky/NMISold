@@ -3,11 +3,18 @@ var layout,maintoolbar,mainForm,mainDP,statusbar,grid,formBarcode;
 var UserName = getUrlVars()["id"];
 var StaffName;
 var StaffPosition;
-var CalibratorData;
+var CalIsotope;
+var CalActivity;
+var CalUnits;
 var BarcodeData;
-
+var HotlabConnectStatus;
+var TimeOut;
+var HotlabConnectServer;
+var HotlabConnectPort;
 
 function init() {
+    // Retrieve Application Settings
+    GetAppSettings();
 
 
     //Set Application Timer
@@ -20,15 +27,16 @@ function init() {
              expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
              type: "myNotice" // 'customCss' - css class
              });*/
-            dhtmlx.message({
-                text: "Barcode.<br />" + BarcodeData,
-                expire: 1000, //milliseconds. You can use negative value (-1) to make notice persistent.
-                type: "myNotice" // 'customCss' - css class
-            });
 
-            hla.GetHotlabData();
+
+            hla.GetHotlabData("data");
             statusbar.setText("Barcode Scanned: "+BarcodeData);
             //formBarcode.setItemValue("Barcode",BarcodeData);
+
+
+
+
+
         },
 
 
@@ -130,26 +138,37 @@ hla.tlbMain_click = function(id) {
 
     }
 };
-hla.GetHotlabData = function(){
-    url = "http://10.7.145.98:8181";
+hla.GetHotlabData = function(param){
+    url = "http://10.7.145.98:8080/"+param;
 
     dhx.ajax().get(url, function(text,xml){
 
         var obj = dhx.DataDriver.json.toObject(text,xml);
 
-        CalibratorData = obj["CalibratorData"];
+        CalIsotope = obj["CalIsotope"];
+        CalActivity = obj["CalActivity"];
+        CalUnits = obj["CalUnits"];
+
         BarcodeData = obj["BarcodeData"];
+        HotlabConnectStatus = obj["Status"];
 
     });
-    if  (CalibratorData === undefined || CalibratorData === null) {
-        CalibratorData = ""
+    if  (CalIsotope === undefined || CalIsotope === null) {
+        CalIsotope = "";
+        CalActivity= "";
+        CalUnits="";
     }
     if  (BarcodeData === undefined || BarcodeData === null) {
         BarcodeData = ""
     }
-
+    dhtmlx.message({
+        text: "HotlabConnect Status:<br />" + HotlabConnectStatus,
+        expire: 1000, //milliseconds. You can use negative value (-1) to make notice persistent.
+        type: "myNotice" // 'customCss' - css class
+    });
 
 };
+
 
 
 hla.Profile = function() {
@@ -459,6 +478,20 @@ GetUserDetails = function(){
     });
 
 };
+GetAppSettings = function(){
+
+    dhx.ajax().get("data/AppSettings.php?id="+UserName, function(text,xml){
+        var AppSettings = dhx.DataDriver.json.toObject(text,xml);
+
+        TimeOut = AppSettings.AppSettings["0"].App_TimeOut;
+        HotlabConnectServer =AppSettings.AppSettings["0"].App_HotlabConnectServer;
+        HotlabConnectPort =AppSettings.AppSettings["0"].App_HotlabConnectPort;
+
+
+
+    });
+
+};
 
 hla.OpenSettings = function() {
 
@@ -512,6 +545,7 @@ hla.OpenSettingsMenu = function() {
             myForm.save();
 
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
+        if (id == "reboot") hla.GetHotlabData("reboot");
     });
     var dp = new dataProcessor("data/frmSettings.php");
     dp.init(myForm);
