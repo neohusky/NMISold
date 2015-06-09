@@ -6,7 +6,7 @@ $id="";
 
 switch ($Table ) {
     case "generators" :
-        // table is generators id=id
+        // table is generators id=ida
         $id ="id";
         break;
     case "eluates" :
