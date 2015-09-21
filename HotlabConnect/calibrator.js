@@ -21,7 +21,6 @@ exports.IsotopeA100 = function (r) {
 //console.log(Activity);
 //console.log(Units);
 
-
     return Isotope;
 
 

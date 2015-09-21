@@ -402,6 +402,7 @@ hla.fGeneratorsAddNew = function() {
 
     mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
         //mainForm.setItemFocus("BatchNo");
+        mainForm.Supplier.enableOptionAutoHeight(true);
         mainForm.setItemValue("ArrivalDate",getDateTime());
         mainForm.setItemValue("Username",UserName);
     });
@@ -410,7 +411,7 @@ hla.fGeneratorsAddNew = function() {
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
             mainForm.save();
-            GetLastAddedId("eluates");
+            GetLastAddedId("generators");
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 

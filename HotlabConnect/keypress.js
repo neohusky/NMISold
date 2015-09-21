@@ -1,6 +1,5 @@
-
 var keypress = require('keypress'); // include keypress library
-
+var BarcodeData ="";
 // make `process.stdin` begin emitting "keypress" events
 keypress(process.stdin);
 // listen for the "keypress" event
