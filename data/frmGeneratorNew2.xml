@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--<items>
+	<item type="settings" position="label-left" labelWidth="130" inputWidth="150" noteWidth="150"/>
+    <item type="label" label="New Generator" labelWidth="auto"/>
+
+    <item type="input" name="id" label="id" tooltip="Generator id" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="BatchNo" label="Batch Number" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="Supplier" label="Supplier" tooltip="Select the supplier name" required="true" validate= "NotEmpty" hidden= "false""/>
+    <item type="input" name="ArrivalDate" label="Arrival Date" tooltip="Enter the arrival date" required="true" validate= "NotEmpty" hidden= "false""/>
+&lt;!&ndash;
+    <item type="calendar" dateFormat="%d-%m-%y" name="ArrivalDate" label="Arrival Date" value="" enableTime="false" calendarPosition="right" tooltip="Enter the arrival date" validate= "NotEmpty"/>
+&ndash;&gt;
+
+    <item type="button" value="Cancel"/>
+    <item type="button" value="Proceed"/>
+
+
+    <items>-->
+
+<items>
+    <item type="label" label="New Generator" labelWidth="auto" inputWidth="auto"/>
+    <item type="settings" position="label-left" labelWidth="180" inputWidth="180" noteWidth="150"/>
+
+
+        <item type="input" name="id" label="id" tooltip="id" required="false" hidden= "true"/>
+        <item type="input" name="BatchNo" label="Batch No" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false"/>
+        <!-- <item type="input" name="Supplier" label="Supplier" tooltip="Select the supplier" required="true" validate= "NotEmpty" hidden= "false"/>-->
+        <item type="combo" name="Supplier"  value= "" label="Supplier" tooltip="Select the supplier name" required="true" validate= "NotEmpty" filtering="true" connector="data/lstSuppliers.php"/>
+        <item type="calendar" dateFormat="%Y-%m-%d %H:%i:%s" name="ArrivalDate" value= "" label="Arrival Date" enableTime="true" calendarPosition="right" tooltip="Enter the arrival date" required="true"/>
+        <item type="input" name="Username" label="StaffID" tooltip="Username" required="true" validate= "NotEmpty" hidden= "true"/>
+
+
+        <item type="button" name="save" value= "Submit" offsetTop="10"/>
+
+        <item type="button" name="cancel" value= "Cancel" offsetTop="10"/>
+
+
+</items>
+ <items>
+<item type="settings" position="label-left" labelWidth="150" inputWidth="150"/>
+
+<item type="fieldset" name="data" label="New Generator" inputWidth="600">
+
+    <item type="label" label="Details">
+        <item type="block" width="500">
+            <item type="input" name="id" label="id" tooltip="id" required="false" hidden= "true"/>
+            <item type="input" name="BatchNo" label="Batch No" tooltip="Enter the batch number" required="true" validate= "NotEmpty" hidden= "false"/>
+            <item type="combo" name="Supplier"  value= "" label="Supplier" tooltip="Select the supplier name" required="true" validate= "NotEmpty" filtering="true" connector="data/lstSuppliers.php"/>
+            <item type="calendar" dateFormat="%Y-%m-%d %H:%i:%s" name="ArrivalDate" value= "" label="Arrival Date" enableTime="true" calendarPosition="right" tooltip="Enter the arrival date" required="true"/>
+            <item type="input" name="Username" label="StaffID" tooltip="Username" required="true" validate= "NotEmpty" hidden= "true"/>
+
+        </item>
+    </item>
+
+    <item type="label" label="" labelHeight="100"/>
+
+
+    <item type="block" width="800">
+        <item type="button" name="save" value= "Submit" offsettop="100"/>
+        <item type="newcolumn"/>
+        <item type="button" name="cancel" value= "Cancel"/>
+    </item>
+</item>
+</items>

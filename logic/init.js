@@ -444,6 +444,7 @@ hla.fGeneratorsAddNew = function() {
 
     mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
         //mainForm.setItemFocus("BatchNo");
+        mainForm.Supplier.enableOptionAutoHeight(true);
         mainForm.setItemValue("ArrivalDate",getDateTime());
         mainForm.setItemValue("Username",UserName);
     });
