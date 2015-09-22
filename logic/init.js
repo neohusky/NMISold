@@ -120,7 +120,7 @@ hla.tlbMain_click = function(id) {
             hla.OpenGenerators();
             break;
         case "btnAdministration":
-            hla.GetHotlabData();
+            hla.fOpenAdministrationMenu();
             break;
         case "btnSettings":
             hla.OpenSettingsMenu();
@@ -265,6 +265,47 @@ hla.fOpenPatientsMenu = function() {
 
 };
 
+hla.fOpenAdministrationMenu = function() {
+
+    toolbar = hla.layout.cells("a").detachToolbar();
+    toolbar = hla.layout.cells("a").attachToolbar();
+    toolbar.loadStruct('data/tlbAdministration.xml');
+
+
+    toolbar.attachEvent("onClick", function(id) {
+
+        if (id == "btnRIScode") hla.RIScodes();
+        if (id == "btnStaff") hla.PatientListRefresh();
+
+    });
+
+
+
+
+};
+
+
+hla.RIScodes = function(){
+    var dp = new dataProcessor("data/gridRISCodes.php");//instatiate dataprocessor
+
+    hla.grid =  hla.layout.cells("a").attachGrid();
+    hla.grid.setImagePath("codebase/imgs/");
+
+    hla.grid.setHeader("id, RIScode, Show");
+    hla.grid.setColTypes("ro,ro,ch");
+    //hla.grid.setColSorting('str,int');
+    hla.grid.setInitWidths('30,300,40');
+    //hla.grid.load("data/dwl.php");
+    hla.grid.load("data/gridRISCodes.php");
+    hla.grid.init();
+    dp.init(hla.grid); // link dataprocessor to the grid
+
+    //hla.grid.attachEvent("onRowSelect", function(id,ind){
+    //    msgbox(("Rows with id: "+id+" was selected by user. Index was: "+ind));
+    //});
+};
+
+
 
 hla.PatientWorklistTodo = function(){
     hla.grid =  hla.layout.cells("a").attachGrid();
@@ -273,7 +314,8 @@ hla.PatientWorklistTodo = function(){
     hla.grid.setColTypes("ro,ro,ro,ro,ro");
     hla.grid.setColSorting('str,str,str,str,str');
     hla.grid.setInitWidths('*,*,*,*,*');
-    hla.grid.load("data/dwl.php");
+    //hla.grid.load("data/dwl.php");
+    hla.grid.load("data/gridWorklistTodo.php");
     hla.grid.init();
 
     hla.grid.attachEvent("onRowSelect", function(id,ind){
@@ -410,7 +452,7 @@ hla.fGeneratorsAddNew = function() {
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
             mainForm.save();
-            GetLastAddedId("eluates");
+            GetLastAddedId("generators");
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 

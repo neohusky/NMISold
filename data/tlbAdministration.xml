@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<toolbar>
+    <item type="button" id="btnRIScode" text="RIS Codes" />
+    <item id="sep01" type="separator"/>
+    <item type="button" id="btnStaff" text="Staff" img="" title="" />
+</toolbar>
+
