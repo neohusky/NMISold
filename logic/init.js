@@ -628,10 +628,23 @@ hla.OpenSettingsMenu = function() {
 
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
         if (id == "reboot") hla.GetHotlabData("reboot");
+        if (id == "config") hla.HotlabConnectConfig();
+
     });
     var dp = new dataProcessor("data/frmSettings.php");
     dp.init(myForm);
 };
+
+hla.HotlabConnectConfig = function(){
+    var dhxWins, w1;
+    dhxWins = new dhtmlXWindows();
+    w1 = dhxWins.createWindow("w1",20,30,500,500);
+    w1.setText("URL via iframe, GET");
+    w1.button("close").disable();
+
+    w1.attachURL("http://10.7.145.206:8080")
+};
+
 
 hla.OpenDaySheetMenu = function() {
 

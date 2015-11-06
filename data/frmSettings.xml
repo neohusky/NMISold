@@ -24,6 +24,7 @@
                 <item type="input" name="App_HotlabConnectServer" label="Hotlab Connect Server" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
                 <item type="input" name="App_HotlabConnectPort" label="Hotlab Connect Port" labelWidth="250" inputWidth="250" labelLeft="175" labelTop="50" inputLeft="175" inputTop="296"/>
                 <item type="button" name="reboot" value= "Reboot" offsetTop="10"/>
+                <item type="button" name="config" value= "config" offsetTop="10"/>
             </item>
 
         </item>
