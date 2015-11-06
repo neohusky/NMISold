@@ -1,0 +1,9 @@
+#!/bin/bash
+fetchmail                      # gets the emails, extracts the PDFs to ~/attachments
+wait "$!"                      # takes some time so I have to wait for it to finish
+shopt -s nullglob              # don't present pattern if no files are matched
+FILES="ls /home/pi/attachments/*.pdf"
+for f in "${FILES[@]}"; do                              # go through all files in the directory
+    [[ $f == *.pdf ]] && lpr -P ColorLaserJet1525 "$f"  # print them if they're PDFs
+done
+sudo rm -- "${FILES[@]}" /var/mail/pi         # delete files and emails at once

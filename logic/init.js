@@ -161,7 +161,7 @@ hla.GetHotlabData = function(param){
         BarcodeData = ""
     }
     dhtmlx.message({
-        text: "HotlabConnect Status:<br />" + HotlabConnectStatus,
+        text: "HotlabConnectOLD Status:<br />" + HotlabConnectStatus,
         expire: 1000, //milliseconds. You can use negative value (-1) to make notice persistent.
         type: "myNotice" // 'customCss' - css class
     });
@@ -444,7 +444,6 @@ hla.fGeneratorsAddNew = function() {
 
     mainForm.loadStruct("data/frmGeneratorNew.xml",function() {
         //mainForm.setItemFocus("BatchNo");
-        mainForm.Supplier.enableOptionAutoHeight(true);
         mainForm.setItemValue("ArrivalDate",getDateTime());
         mainForm.setItemValue("Username",UserName);
     });
@@ -453,7 +452,16 @@ hla.fGeneratorsAddNew = function() {
     mainForm.attachEvent("onButtonClick", function(id){
         if (id == "save")
             mainForm.save();
-            GetLastAddedId("generators");
+
+
+        zplurl = zplLastAddedId("generators");
+
+        dhx.ajax().get(zplurl, function(text,xml){
+
+
+        });
+
+        //http://localhost/NMIS/labels/generator.php?id=0
         if (id == "cancel") hla.layout.cells("a").detachObject(true);
     });
 
@@ -521,8 +529,24 @@ GetLastAddedId = function(tble){
          type: "myNotice" // 'customCss' - css class
          });
     });
-
+return id;
 };
+zplLastAddedId = function(tble){
+
+    dhx.ajax().get("data/lastadded.php?id="+tble, function(text,xml){
+        var id = dhx.DataDriver.json.toObject(text,xml);
+
+        id = id.id["0"].id;
+        zplURL = "http://10.7.145.101/NMIS/labels/generator.php?id=" + id;
+        dhtmlx.message({
+            text: zplURL ,
+            expire: -1, //milliseconds. You can use negative value (-1) to make notice persistent.
+            type: "myNotice" // 'customCss' - css class
+        });
+    });
+    return zplURL;
+};
+
 GetUserDetails = function(){
 
     dhx.ajax().get("data/UserDetails.php?id="+UserName, function(text,xml){
